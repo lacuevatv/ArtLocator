@@ -1,0 +1,148 @@
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+1.0 Reset
+2.0 Fuentes
+3.0 VARIABLES
+4.0 GENERAL
+5.0 ANIMACIONES
+6.0 FORMULARIO
+
+--------------------------------------------------------------*/
+
+/*--------------------------------------------------------------
+1.0 Reset
+--------------------------------------------------------------*/
+
+@import 'sass/reset';
+
+/*--------------------------------------------------------------
+2.0 Fuentes
+--------------------------------------------------------------*/
+
+@import 'sass/fonts';
+
+/*--------------------------------------------------------------
+3.0 variables
+--------------------------------------------------------------*/
+
+@import 'sass/variables';
+
+/*--------------------------------------------------------------
+4.0 General
+--------------------------------------------------------------*/
+
+html, body {
+    font-family: $fuente-principal;
+    color: $color-blanco;
+    background-color: $color-negro;
+    font-size: 16px;
+    line-height: 18px;
+    font-weight: 500;
+    //overflow-x: hidden;
+    overflow: visible;
+    background-color: $color-azul;
+    background-repeat: no-repeat;
+    background-image: url(../images/fondo-mobil.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+
+    @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
+        background-image: url(../images/fondo-mobil@2x.png);
+        background-size: cover;
+    }
+
+    @media (min-width: $md) {
+        padding: 0;
+        background-image: url(../images/fondo-pc.png);
+        background-size: cover;
+    }
+
+    @media (min-width: $md) and (-webkit-min-device-pixel-ratio: 1.5), (min-width: $md) and (min--moz-device-pixel-ratio: 1.5), (min-width: $md) and (min-resolution: 240dpi) {
+        background-image: url(../images/fondo-pc@2x.png);
+        background-size: cover;
+    }
+}
+
+.main-wrapper {
+    padding: 18px 15px;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+    @media (min-width: $md) {
+        //height: auto;
+    }
+}
+
+.inner-wrapper {
+    height: 100%;
+    position: relative;
+    //border: 1px solid black;
+    //padding: $paddingLeftRight;
+
+    @media (min-width: $md) {
+        border: none;
+        margin: 0;
+        padding: $paddingLeftRightLG;
+    }
+    @media (min-width: $xlg) {
+        padding: 50px $paddingLeftRightXLG;
+    }
+
+}
+
+.brand-name {
+    img {
+        width: 30%;
+        max-width: 260px;
+        height: auto;
+        @media (min-width: $md) {
+            width: 121px;
+        }
+    }
+}
+
+.main {
+    @media (min-width: $md) {
+        height: 90%;
+    }
+}
+
+.mt-30 {
+    margin-top: 30px!important;
+}
+.mb-30 {
+    margin-bottom: 30px!important;
+}
+
+.mr-3porcentaje-md {
+    @media (min-width: $md) {
+        margin-right: 3%!important;
+    }
+}
+.ml-3porcentaje-md {
+    @media (min-width: $md) {
+        margin-left: 3%!important;
+    }
+}
+
+.mr-min-2 {
+    margin-right: 2%!important;
+}
+
+.mr-min-3 {
+    margin-right: 2%!important;
+}
+
+/*--------------------------------------------------------------
+4.0 animaciones
+--------------------------------------------------------------*/
+
+@import 'sass/animaciones';
+
+/*--------------------------------------------------------------
+4.0 formulario
+--------------------------------------------------------------*/
+
+@import 'sass/formulario';

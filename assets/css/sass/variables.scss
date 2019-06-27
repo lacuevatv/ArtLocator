@@ -1,0 +1,52 @@
+/*FUENTES*/
+$fuente-secundaria: 'Open Sans', sans-serif;
+$fuente-principal: 'Gotham HTF', $fuente-secundaria;
+$fuente-book: 'Gotham HTF Book', $fuente-principal; 
+
+/*COLORES*/
+$color-blanco: #fff;
+$color-negro: #7a7a7a;
+$color-azul: #007bc3;
+$color-rosa:#FE6490;
+
+$transitionSpeed: 500ms;
+$transitionSpeedx2: 2000ms;
+
+$paddingLeftRight: 15px;
+$paddingLeftRightLG: 50px;
+$paddingLeftRightXLG: 100px;
+
+/*GRID OPTIONS*/
+$xs: 576px; //<576px
+$sm: 768px; //<768px
+$md: 992px; //<992px
+$lg: 1200px; //<1200px
+$xlg: 1600px;
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+     -moz-border-radius: $radius;
+      -ms-border-radius: $radius;
+          border-radius: $radius;
+}
+
+@mixin transition($var) {
+  -webkit-transition: $var;
+     -moz-transition: $var;
+      -ms-transition: $var;
+          transition: $var;
+}
+
+@mixin box-shadow($var) {
+  -webkit-box-shadow: $var;
+     -moz-box-shadow: $var;
+      -ms-box-shadow: $var;
+          box-shadow: $var;
+}
+
+@mixin transform($var) {
+  -webkit-transform: $var;
+     -moz-transform: $var;
+      -ms-transform: $var;
+          transform: $var;
+}
