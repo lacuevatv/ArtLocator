@@ -1,16 +1,15 @@
 /*FUENTES*/
-$fuente-secundaria: 'Open Sans', sans-serif;
-$fuente-principal: 'Gotham HTF', $fuente-secundaria;
-$fuente-book: 'Gotham HTF Book', $fuente-principal; 
+$fuente-principal: sans-serif;
+//$fuente-secundaria: 'Gotham HTF', $fuente-principal;
 
 /*COLORES*/
 $color-blanco: #fff;
-$color-negro: #7a7a7a;
-$color-azul: #007bc3;
-$color-rosa:#FE6490;
+$color-negro: #333;
+$color-gris: #f2f2f2;
+$color-rojo-btn:#FE6490;
 
 $transitionSpeed: 500ms;
-$transitionSpeedx2: 2000ms;
+$transitionSpeedx2: 800ms;
 
 $paddingLeftRight: 15px;
 $paddingLeftRightLG: 50px;

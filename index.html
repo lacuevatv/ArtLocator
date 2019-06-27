@@ -10,11 +10,110 @@
 
 </head>
 <body>
-<div class="main-wrapper">
-    <div class="inner-wrapper">
-        art locator
-    </div><!--//.inner-wrapper-->
-</div><!--//.main-wrapper-->
+<div class="site-wrapper">
+    <div class="more-content-wrapper">
+        <div class="more-content-inner">
+            <div class="contenedor">
+                <button id="close-btn" class="close-btn">
+                    <span class="tog1"></span>
+                    <span class="tog2"></span>
+                    <span class="sr-only">
+                        Cerrar
+                    </span>
+                </button>
+                <div id="contenido" class="contenido"></div>
+            </div>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <h1 class="brand-name">
+            Chesterfield
+        </h1>
+    </header>
+    
+    <main class="main-wrapper">
+        <div class="inner-wrapper">
+            <div class="content-wrapper">
+                <div class="content">
+                    <h2>
+                        Art Locator
+                    </h2>
+                    <p>
+                        In efforts to expand our horizons, we welcome every investment-minded individual to join us.
+                    </p>
+
+                    <div class="button-wrapper">
+                        <button class="btn-location" id="myLocationBtn">
+                            Usar mi ubicación
+                        </button>
+                        
+                        <p>
+                            O elegí la zona que querés explorar
+                        </p>
+                    </div>
+
+                    <form id="zona-form" class="zona-form" name="zona-form" method="POST">
+                        <div class="select-wrapper">
+                            
+                            <select name="zona-provincia" 
+                            id="zona-provincia">
+                                <option val="caba">
+                                    Capital Federal
+                                </option>
+                                <option val="bsas">
+                                    Buenos Aires
+                                </option>
+                            </select>
+
+                            <select name="zona-ciudad" 
+                            id="zona-ciudad">
+                                <option val="caba">
+                                    Ciudad de Buenos Aires
+                                </option>
+                                <option val="la-plata">
+                                    La Plata
+                                </option>
+                                <option val="rosario">
+                                    Rosario
+                                </option>
+                            </select>
+
+                            <select name="zona-barrio" 
+                            id="zona-barrio">
+                                <option val="monserrat">
+                                    Monserrat
+                                </option>
+                                <option val="palermo">
+                                    Palermo
+                                </option>
+                            </select>
+
+                        </div>
+                        
+                        <button type="submit" class="submit-btn">
+                            Buscar
+                        </button>
+
+                    </form>
+                    
+                    <a class="btn-volver" href="#" title="Volver">
+                        Volver
+                    </a>
+                    
+                </div>
+
+            </div><!--content-wrapper-->
+
+            <div class="map-wrapper">
+                <div id="map" class="map"></div>
+            </div><!--map-wrapper-->
+        </div><!--//.inner-wrapper-->
+    </main><!--//.main-wrapper-->
+
+    <footer></footer>
+    
+</div><!--//.site-wrapper-->
 <!--- scripts -->
     <script src="assets/js/script.js"></script>
 </body>
