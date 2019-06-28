@@ -373,9 +373,14 @@ html, body {
 .mapinfo-wrapper .imagen-destacada {
   position: relative;
   width: 100%;
-  height: 150px;
+  height: 120px;
   overflow: hidden;
   background-color: #f2f2f2;
+}
+@media (min-width: 992px) {
+  .mapinfo-wrapper .imagen-destacada {
+    height: 150px;
+  }
 }
 .mapinfo-wrapper .imagen-destacada > img {
   position: absolute;
@@ -399,15 +404,25 @@ html, body {
   color: #fff;
   font-size: 0.7rem;
   line-height: 1rem;
-  margin: 0 0 2em;
+  margin: 0 0 1em;
   padding: 0 10px;
+}
+@media (min-width: 992px) {
+  .mapinfo-wrapper .tag {
+    margin: 0 0 2em;
+  }
 }
 .mapinfo-wrapper .excerpt {
   color: #fff;
   font-size: 0.7rem;
   line-height: 1rem;
   padding: 0 10px;
-  margin: 0 0 2em;
+  margin: 0 0 1em;
+}
+@media (min-width: 992px) {
+  .mapinfo-wrapper .excerpt {
+    margin: 0 0 2em;
+  }
 }
 .mapinfo-wrapper .ver-mas-btn {
   cursor: pointer;
@@ -422,9 +437,6 @@ html, body {
 .mapinfo-wrapper .ver-mas-btn:hover {
   zoom: 1;
   opacity: 0.8;
-}
-.mapinfo-wrapper .ver-mas-btn:before  {
-  content: "+";
 }
 
 .more-content-wrapper {
@@ -516,6 +528,20 @@ html, body {
 .more-content-wrapper .more-content-inner .contenedor .contenido {
   position: relative;
   z-index: 11;
+}
+
+.gm-style .gm-style-iw-c {
+  padding: 0 !important;
+}
+
+.gm-style-iw-d {
+  overflow: hidden !important;
+  background-color: #FE6490;
+}
+
+.gm-style .gm-style-iw-t::after {
+  background-color: #FE6490 !important;
+  z-index: -4 !important;
 }
 
 /*# sourceMappingURL=style.css.map */

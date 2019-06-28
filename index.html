@@ -114,6 +114,32 @@
     <footer></footer>
     
 </div><!--//.site-wrapper-->
+<script>
+/*
+ * DEFINICIONES DEL MAPA Y SUS LOCACIONES
+*/
+
+//centro del mapa: latitud y longitud
+var centerMap = [-34.591444, -58.428068];
+
+/* 
+* MARKERS O SUCURSASLES
+* Array con los datos de las sucursales
+* INDICE:
+* 0. ID, 1. Titulo corto (ciudad, prov), 2. Latitud, 3. Longitug, 4. , 5. Objeto con data  para construir info windows del marker:
+*    0. titulo, 1. URL imagen, 2. tag bajo titulo, 3. resumen
+* 6. Definir true o false, si tiene popup ver mas
+* 7. Objeto con data para construir popup ver mas
+*    0. 
+*/
+var locations = [
+    [1, 'Ciudad de Buenos Aires', -34.6078603, -58.383111, '', { 'titulo' : 'MARTE (Argentina)', 'imagen' : 'assets/images/imagen-destacada.png', 'tag' : '@marte_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.' }, true, ''],
+    [2, 'La Plata', -34.9205233, -57.9881898, '', { 'titulo' : 'SATURNO (Argentina)', 'imagen' : 'assets/images/imagen-destacada.png', 'tag' : '@saturno_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.' }, true, ''],
+    [3, 'Rosario', -32.9521898, -60.7666797, '', { 'titulo' : 'JUPITER (Argentina)', 'imagen' : 'assets/images/imagen-destacada.png', 'tag' : '@jupiter_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.' },  true, ''],
+    [4, 'Mar del Plata', -38.0174836, -57.7406185, '', { 'titulo' : 'VENUS (Argentina)', 'imagen' : 'assets/images/imagen-destacada.png', 'tag' : '@venus_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.' }, true, ''],
+];
+
+</script>
 <!--- scripts -->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHvO2i0BzlyPDyFQ3Jdkv4i9pmSNNYMMg&callback=initMap"></script>
     <script src="assets/js/script.js"></script>

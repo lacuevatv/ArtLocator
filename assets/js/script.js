@@ -59,62 +59,24 @@ function closeMore() {
     closeButton.removeEventListener('click', closeMore, false);
 }
 
+
 /*
  * MAPA
+ * google maps api y markers
 */
 function initMap() {
     google.maps.event.addDomListener(window, 'load', initArtLocator);
 }
 
-// InfoWindow content
-/*var contentEjemplo = '<div id="iw-container">' +
-'<div class="iw-title">Porcelain Factory of Vista Alegre</div>' +
-'<div class="iw-content">' +
-'<div class="iw-subTitle">History</div>' +
-'<img src="http://maps.marnoto.com/en/5wayscustomizeinfowindow/images/vistalegre.jpg" alt="Porcelain Factory of Vista Alegre" height="115" width="83">' +
-'<p>Founded in 1824, the Porcelain Factory of Vista Alegre was the first industrial unit dedicated to porcelain production in Portugal. For the foundation and success of this risky industrial development was crucial the spirit of persistence of its founder, José Ferreira Pinto Basto. Leading figure in Portuguese society of the nineteenth century farm owner, daring dealer, wisely incorporated the liberal ideas of the century, having become "the first example of free enterprise" in Portugal.</p>' +
-'<div class="iw-subTitle">Contacts</div>' +
-'<p>VISTA ALEGRE ATLANTIS, SA<br>3830-292 Ílhavo - Portugal<br>'+
-'<br>Phone. +351 234 320 600<br>e-mail: geral@vaa.pt<br>www: www.myvistaalegre.com</p>'+
-'</div>' +
-'<div class="iw-bottom-gradient"></div>' +
-'</div>';*/
-
-var contentEjemplo = `
-<div class="mapinfo-wrapper">
-<figure class="imagen-destacada">
-<img src="assets/images/imagen-destacada.png">
-</figure>
-<h1 class="title">
-MARTE (Argentina)
-</h1>
-<h5 class="tag">
-@marte_
-</h5>
-<p class="excerpt">
-In efforts to expand our horizons, we welcome every investment-minded individual to join us.
-</p>
-<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="#">+ Ver más</button>
-</div>
-`;
-
+//al hacer clic en ver mas en los markers, se pasa el objeto para rescatar el id del marker y luego pasarla a la funcion de abrir el popup
 function openMoreId(object) {
     var id = object.getAttribute('data-id');
-    console.log(id);
     openMore(id);
 }
 
-// marker options
-var locations = [
-    [1, 'Ciudad de Buenos Aires', -34.6078603, -58.383111, 4, contentEjemplo],
-    [2, 'La Plata', -34.9205233, -57.9881898, 5, contentEjemplo],
-    [3, 'Rosario', -32.9521898, -60.7666797, 3, contentEjemplo],
-    [4, 'Mar del Plata', -38.0174836, -57.7406185, 2, contentEjemplo],
-];
-
 function initArtLocator() {
 
-    var center = new google.maps.LatLng(-34.591444, -58.428068);
+    var center = new google.maps.LatLng(centerMap[0], centerMap[1]);
 
     var colores = [
         {
@@ -141,8 +103,6 @@ function initArtLocator() {
     
     // A new Info Window is created and set content
     var infowindow = new google.maps.InfoWindow({
-        //content: content,
-
         // Assign a maximum value for the width of the infowindow allows
         // greater control over the various content elements
         maxWidth: 350
@@ -161,7 +121,7 @@ function initArtLocator() {
   
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
           return function() {
-            infowindow.setContent(locations[i][5]);
+            infowindow.setContent(makeContent(locations[i]));
             infowindow.open(map, marker);
           }
         })(marker, i));
@@ -173,6 +133,47 @@ function initArtLocator() {
         infowindow.close();
     });
 
+    //arma el contenido del marker de acuerdo al array de locations
+    function makeContent(contenido) {
+        var html = '';
+        if ( contenido[5] == undefined || contenido[5] == null || contenido[5] == ''  ) {
+
+            html += '<div class="mapinfo-wrapper"><div style="height: 30px;"></div><h1 class="title" style="padding-bottom:2em">';
+            html +=         contenido[1];
+            html +=     '</h1>';
+            if ( contenido[6] && contenido[7] != undefined ) {
+                html +=     '<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="';
+                html +=         contenido[0]
+                html +=     '">+ Ver más</button>';
+            }
+            html +=  '</div>';
+
+        } else {
+
+            html += '<div class="mapinfo-wrapper">';
+            html +=    '<figure class="imagen-destacada">';
+            html +=     '<img src="' + contenido[5].imagen + '">';
+            html +=    '</figure>';
+            html +=    '<h1 class="title">';
+            html +=         contenido[5].titulo;
+            html +=     '</h1>';
+            html +=    '<h5 class="tag">';
+            html +=     contenido[5].tag
+            html +=     '</h5>';
+            html +=     '<p class="excerpt">';
+            html +=     contenido[5].excerpt
+            html +=     '</p>';
+            if ( contenido[6] && contenido[7] != undefined ) {
+                html +=     '<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="';
+                html +=         contenido[0]
+                html +=     '">+ Ver más</button>';
+            }
+            html +=  '</div>';
+
+        }
+
+        return html;
+    }
 
 
     // *
@@ -183,47 +184,17 @@ function initArtLocator() {
     // *
     google.maps.event.addListener(infowindow, 'domready', function() {
 
-        // Reference to the DIV that wraps the bottom of infowindow
-        /*var iwOuter = $('.gm-style-iw');
+        //colocar el boton
+        var btnCloseMarker = document.querySelector('.gm-style-iw-c').children[1];
+        btnCloseMarker.style.backgroundColor = '#000';
+        btnCloseMarker.style.top = '0.5em';
+        btnCloseMarker.style.right = '1em';
+        //cambiar la cruz a blanco
+        var imgCruz = btnCloseMarker.children[0];
+        
+        var imgSVG = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNNDM3LjUsMzg2LjZMMzA2LjksMjU2bDEzMC42LTEzMC42YzE0LjEtMTQuMSwxNC4xLTM2LjgsMC01MC45Yy0xNC4xLTE0LjEtMzYuOC0xNC4xLTUwLjksMEwyNTYsMjA1LjFMMTI1LjQsNzQuNQ0KCWMtMTQuMS0xNC4xLTM2LjgtMTQuMS01MC45LDBjLTE0LjEsMTQuMS0xNC4xLDM2LjgsMCw1MC45TDIwNS4xLDI1Nkw3NC41LDM4Ni42Yy0xNC4xLDE0LjEtMTQuMSwzNi44LDAsNTAuOQ0KCWMxNC4xLDE0LjEsMzYuOCwxNC4xLDUwLjksMEwyNTYsMzA2LjlsMTMwLjYsMTMwLjZjMTQuMSwxNC4xLDM2LjgsMTQuMSw1MC45LDBDNDUxLjUsNDIzLjQsNDUxLjUsNDAwLjYsNDM3LjUsMzg2LjZ6Ii8+DQo8L3N2Zz4NCg==';
 
-        /* Since this div is in a position prior to .gm-div style-iw.
-        * We use jQuery and create a iwBackground variable,
-        * and took advantage of the existing reference .gm-style-iw for the previous div with .prev().
-        */
-        /*var iwBackground = iwOuter.prev();
+        imgCruz.setAttribute('src', imgSVG);
 
-        // Removes background shadow DIV
-        /*iwBackground.children(':nth-child(2)').css({'display' : 'none'});
-
-        // Removes white background DIV
-        /*iwBackground.children(':nth-child(4)').css({'display' : 'none'});
-
-        // Moves the infowindow 115px to the right.
-        /*iwOuter.parent().parent().css({left: '115px'});
-
-        // Moves the shadow of the arrow 76px to the left margin.
-        /*iwBackground.children(':nth-child(1)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
-
-        // Moves the arrow 76px to the left margin.
-        /*iwBackground.children(':nth-child(3)').attr('style', function(i,s){ return s + 'left: 76px !important;'});
-
-        // Changes the desired tail shadow color.
-        /*iwBackground.children(':nth-child(3)').find('div').children().css({'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index' : '1'});
-
-        // Reference to the div that groups the close button elements.
-        /*var iwCloseBtn = iwOuter.next();
-
-        // Apply the desired effect to the close button
-        /*iwCloseBtn.css({opacity: '1', right: '38px', top: '3px', border: '7px solid #48b5e9', 'border-radius': '13px', 'box-shadow': '0 0 5px #3990B9'});*/
-
-        // If the content of infowindow not exceed the set maximum height, then the gradient is removed.
-        /*if($('.iw-content').height() < 140){
-            $('.iw-bottom-gradient').css({display: 'none'});
-        }*/
-
-        // The API automatically applies 0.7 opacity to the button after the mouseout event. This function reverses this event to the desired value.
-        /*iwCloseBtn.mouseout(function(){
-            $(this).css({opacity: '1'});
-        });*/
     });
 }
