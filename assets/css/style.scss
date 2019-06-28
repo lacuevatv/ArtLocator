@@ -309,13 +309,21 @@ html, body {
 
         .contenedor {
             position: relative;
+            overflow: hidden;
+            overflow-y: auto;
             background-color: $color-gris;
             width: 100%;
             height: 100%;
 
+            @media (min-width: $sm) {
+                width: 90%;
+                height: 90%;
+            }
+
             @media (min-width: $md) {
+                overflow-y: hidden;
                 width: 80%;
-                height: 80%;
+                height: auto;
             }
 
             .close-btn {
@@ -341,7 +349,11 @@ html, body {
                     top: 50%;
                     left: 10%;
                     @include transform(rotate(45deg));
-                    background-color: $color-negro;
+                    background-color: $color-blanco;
+
+                    @media (min-width: $md) {
+                        background-color: $color-rojo-fondo;
+                    }
                 }
                 .tog2 {
                     display: block;
@@ -351,18 +363,176 @@ html, body {
                     top: 50%;
                     left: 10%;
                     @include transform(rotate(-45deg));
-                    background-color: $color-negro;
+                    background-color: $color-blanco;
+                    @media (min-width: $md) {
+                        background-color: $color-rojo-fondo;
+                    }
                 }
             }//.close-btn
 
             .contenido {
                 position: relative;
                 z-index: 11;
-            }
+            }//.contenido
             
         }//.contenedor
     }//.more-content-inner
 }//.more-content-wrapper
+
+//articulo que sería el contenido interno que va en contenido
+.art-popup-wrapper {
+
+    @media (min-width: $md) {
+        height: 100%;
+        display: flex;
+        display: -o-flex;
+        display: -ms-flex;
+        display: -moz-flex;
+        display: -webkit-flex;
+    }
+
+    .video-wrapper {
+        background-color: $color-rojo-fondo;
+        position: relative;
+        height: 100vh;
+        @media (min-width: $sm) {
+            height: 500px;
+        }
+        @media (min-width: $md) {
+            height: auto;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .title-wrapper {
+            z-index: 11;
+            position: absolute;
+            color: $color-blanco;
+            bottom: 2em;
+            left: 2em;
+            h1 {
+                font-weight: bold;
+                font-size: 1rem;
+            }
+            h5 {
+                font-size: .7rem;
+                line-height: 1.2rem;
+            }
+        }//.title
+
+        .video {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+
+            > img {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                @include transform(translate(-50%,0));
+                height: 100%;
+                width: auto;
+            }
+
+            > video {
+                position: absolute;
+                left: 50%;
+                top: 0;
+                @include transform(translate(-50%,0));
+            }
+
+            .playbtn {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                @include transform(translate(-50%,-50%));
+                display: block;
+                z-index: 11;
+                height: 40px;
+                width: 40px;
+                background-color: $color-blanco;
+                cursor: pointer;
+                &:hover {
+                    zoom: 1;
+                    opacity: 0.8;
+                }
+            }
+
+            .playing {
+                opacity: .1;
+                &:hover {
+                    zoom: 1;
+                    opacity: 1;
+                }
+            }
+        }//.video
+
+    }//.video-wrapper
+
+    .contenido-wrapper {
+        @media (min-width: $md) {
+            width: 50%;
+            height: 100%;
+            display: flex;
+            display: -o-flex;
+            display: -ms-flex;
+            display: -moz-flex;
+            display: -webkit-flex;
+            -webkit-flex-direction: column-reverse;
+            -moz-flex-direction: column-reverse;
+            -ms-flex-direction: column-reverse;
+            -o-flex-direction: column-reverse;
+            flex-direction: column-reverse;
+        }
+
+        .text-wrapper {
+            background-color: $color-rojo-fondo;
+            padding: 1.5em 2em;
+            color: $color-blanco;
+
+            @media (min-width: $md) {
+                display: flex;
+                display: -o-flex;
+                display: -ms-flex;
+                display: -moz-flex;
+                display: -webkit-flex;
+                -webkit-justify-content: space-between;
+                -moz-justify-content: space-between;
+                -ms-justify-content: space-between;
+                -o-justify-content: space-between;
+                justify-content: space-between;
+            }
+            
+            .text {
+                font-size: .7rem;
+                line-height: 1.2rem;
+                @media (min-width: $md) {
+                    width: 55%;
+                }
+            }
+
+            .direcion {
+                display: none;
+                @media (min-width: $md) {
+                    width: 40%;
+                    display: block;
+                    font-size: .9rem;
+                    text-align: right;
+                }
+            }
+        }//.text-wrapper
+
+        .galeria-wrapper {
+            @media (min-width: $md) {
+                height: 500px;
+                overflow: hidden;
+            }
+        }
+        
+    }//.contenido-wrapper
+}//.art-popup-wrapper
 
 
 //contenido del mapa, hacerlo con js

@@ -25,6 +25,20 @@ function openMore (id) {
     var contenido = document.querySelector('#contenido');
     var closeButton = document.querySelector('#close-btn');
 
+    
+    if ( contenido.getAttribute('data-id') != id ) {
+
+        //remueve el contenido
+        contenido.innerHTML = '';
+
+        //arma el contenido de la ventana   
+        var html = makeContentPopup(id);
+
+        contenido.innerHTML = html;
+
+    } 
+    
+
     //display block to wrapper
     wrapper.style.display = 'block'
 
@@ -34,8 +48,6 @@ function openMore (id) {
         contenedor.style.height = window.innerHeight + 'px';
     },100);
     
-    
-
     //agrega el evento para cerrar la ventana
     closeButton.addEventListener('click', closeMore, false);
 }
@@ -59,6 +71,74 @@ function closeMore() {
     closeButton.removeEventListener('click', closeMore, false);
 }
 
+/*
+ * ARMA EL CONTENIDO DEL POPUP
+ * busca en locations cargada a travez del id que recibe como parametro
+*/
+function makeContentPopup(id) {
+    var html, marker;
+
+    for (var index = 0; index < locations.length; index++) {
+        if ( locations[index][0] == id ) {
+            marker = locations[index];
+            break;
+        }
+    }
+
+    if ( marker == undefined ) {
+        html = '<p>No se encontró el  contenido</p>';
+    } else {
+        html = `
+            <article class="art-popup-wrapper">
+                <div class="video-wrapper">
+                    <div class="title-wrapper">
+                        <h1 class="title">
+                            MARTE (Argentina)
+                        </h1>
+                        <h5>
+                            @marte_
+                        </h5>
+                    </div>
+                    <div class="video">
+                        <button class="playbtn" id="play" onclick="videoToogle(this)"></button>
+                        <video id="videolocator" height="100%" muted poster="assets/images/imagen-destacada.png">
+                            <source src="assets/images/movie.mp4" type="video/mp4">
+                            <source src="" type="video/ogg">
+                            <img src="assets/images/imagen-destacada.png">    
+                        </video>
+                    </div>
+                </div>
+
+                <div class="contenido-wrapper">
+                    <div class="text-wrapper">
+                        <div class="text">
+                            Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. 
+                        </div>
+                        <div class="direcion">
+                                Gorriti 5043 - PALERMO
+                        </div>
+                    </div>
+                    <div class="galeria-wrapper">
+                        <img src="assets/images/despues.jpg">
+                    </div>
+                </div>
+            </article>
+        `;
+    }
+
+    return html;
+}
+
+function videoToogle(el) {
+    el.classList.toggle('playing');
+    var video = document.getElementById('videolocator')
+    if (video.paused ) {
+        video.play();
+    } else {
+        video.pause();
+    }
+    
+}
 
 /*
  * MAPA
