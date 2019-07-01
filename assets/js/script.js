@@ -35,6 +35,17 @@ function openMore (id) {
         var html = makeContentPopup(id);
 
         contenido.innerHTML = html;
+        
+
+        //activa galeria before after
+        var dataGaleria = document.querySelector('#data-before-after');
+        if ( dataGaleria != null) {
+            new beforeAfter({
+                'el'     : 'before-after', // or just the node object
+                'before' : dataGaleria.children[0].src,
+                'after'  : dataGaleria.children[1].src
+            });
+        }
 
     } 
     
@@ -88,38 +99,86 @@ function makeContentPopup(id) {
     if ( marker == undefined ) {
         html = '<p>No se encontró el  contenido</p>';
     } else {
+        var titulo, tag, video, texto, direccion, imagen, imagenes;
+
+        titulo = marker[5].titulo != '' ? marker[5].titulo : '';
+        tag = marker[5].tag != '' ? marker[5].tag : '';
+        texto = marker[5].excerpt != '' ? marker[5].excerpt : '';
+        imagen = marker[5].imagen != '' ? marker[5].imagen : '';
+        direccion = marker[7].direccion != '' ? marker[7].direccion : '';
+        video = marker[7].video;
+        imagenes = marker[7].imagenes;
+        
         html = `
             <article class="art-popup-wrapper">
                 <div class="video-wrapper">
                     <div class="title-wrapper">
-                        <h1 class="title">
-                            MARTE (Argentina)
-                        </h1>
-                        <h5>
-                            @marte_
-                        </h5>
+                        <h1 class="title">`
+                        + titulo +    
+                        `</h1>
+                        <h5>`
+                        + tag +   
+                        `</h5>
                     </div>
                     <div class="video">
-                        <button class="playbtn" id="play" onclick="videoToogle(this)"></button>
-                        <video id="videolocator" height="100%" muted poster="assets/images/imagen-destacada.png">
-                            <source src="assets/images/movie.mp4" type="video/mp4">
-                            <source src="" type="video/ogg">
-                            <img src="assets/images/imagen-destacada.png">    
-                        </video>
-                    </div>
-                </div>
+                        <button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
 
+                        html +=  '<video id="videolocator" height="100%" poster="'+imagen+'">';
+                            for (var i = 0; i < video.length; i++) {
+                                html += '<source src="'
+                                
+                                html += video[i];
+                                
+                                html += '" type="video/';
+                                    if ( video[i].search('mp4') != -1 ) {
+                                        html += 'mp4';
+                                    } else if ( video[i].search('ogg') != -1 ) {
+                                        html += 'ogg';
+                                    } else {
+                                        html += 'webm';
+                                    }
+                                html += '">'
+                            }
+                            html += '<img src="'+imagen+'">';
+                        html += '</video>';
+
+        html +=     `</div>
+                </div>
+                `;
+        html += `        
                 <div class="contenido-wrapper">
                     <div class="text-wrapper">
-                        <div class="text">
-                            Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco. 
-                        </div>
-                        <div class="direcion">
-                                Gorriti 5043 - PALERMO
-                        </div>
+                        <div class="text">`
+                            + texto + 
+                        `</div>
+                        <div class="direcion">`
+                            + direccion +
+                        `</div>
                     </div>
+
                     <div class="galeria-wrapper">
-                        <img src="assets/images/despues.jpg">
+                `;
+                    //galeria antes y despuess
+                    if ( imagenes.length == 2 && ( imagenes[0] != '' || imagenes[1] != ''  ) ) {
+                        html +=  '<div id="before-after" class="before-after"></div>';
+                        html += '<div id="data-before-after" class="before-after" data-before-after style="display:none">';
+                            html += '<img src="'+imagenes[0]+'"></img>';
+                            html += '<img src="'+imagenes[1]+'"></img>';
+                        html += '</div>';
+
+                    } else if ( imagenes.length > 0 && ( imagenes[0] != '' || imagenes[1] != ''  ) ) {
+                        if ( imagenes[0] != '' ) {
+                            html += '<img src="'+imagenes[0]+'">';
+                        } else {
+                            if ( imagenes[1] != '' ) {
+                                html += '<img src="'+imagenes[0]+'">';
+                            }
+                        }
+                        
+                    } else {
+                        html += '<img src="'+imagen+'">';
+                    }
+        html += ` 
                     </div>
                 </div>
             </article>
