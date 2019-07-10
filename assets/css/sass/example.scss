@@ -31,9 +31,9 @@ justify-content: center;
 
 
 <picture>
-  <source srcset="mdn-logo.svg" type="image/svg+xml">
+  <source srcset="assets/images/mdn-logo.svg" type="image/svg+xml">
   <source srcset="assets/images/intel-logo-blanco.png 1x, assets/images/intel-logo-blanco@2x.png 2x" media="(min-width: 300px)">
-  <img src="assets/images/intel-logo-blanco.png" alt="Intel Logo">
+  <img src="assets/images/intel-logo-blanco.png" alt="">
 </picture>
 
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5), only screen and (min--moz-device-pixel-ratio: 1.5), only screen and (min-resolution: 240dpi) {
@@ -56,3 +56,16 @@ justify-content: center;
         Este campo nos ayuda a comunicarnos
     </span>
 </div>
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+::-moz-placeholder { /* Firefox 19+ */
+  color: pink;
+}
+:-ms-input-placeholder { /* IE 10+ */
+  color: pink;
+}
+:-moz-placeholder { /* Firefox 18- */
+  color: pink;
+}
