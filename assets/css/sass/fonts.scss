@@ -1,106 +1,42 @@
-/*GOTHAM*/
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+/*CAGeheimagent*/
 @font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-black.eot');
-    src: url('../fonts/gotham/gothamhtf-black.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-black.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-black.otf') format('opentype');
-    font-weight: 900;
+    font-family: 'CAGeheimagent';
+    src: url('../fonts/cageheimagentregular.eot');
+    src: url('../fonts/cageheimagentregular.woff') format('woff'),
+        url('../fonts/cageheimagentregular.svg') format('svg'),
+        url('../fonts/cageheimagentregular.otf') format('opentype');
+    font-weight: 400;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-bold.eot');
-    src: url('../fonts/gotham/gothamhtf-bold.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-bold.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-bold.otf') format('opentype');
+    font-family: 'CAGeheimagent';
+    src: url('../fonts/cageheimagentitalic.eot');
+    src: url('../fonts/cageheimagentitalic.woff') format('woff'),
+        url('../fonts/cageheimagentitalic.svg') format('svg'),
+        url('../fonts/cageheimagentitalic.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'CAGeheimagent';
+    src: url('../fonts/cageheimagentbold.eot');
+    src: url('../fonts/cageheimagentbold.woff') format('woff'),
+        url('../fonts/cageheimagentbold.svg') format('svg'),
+        url('../fonts/cageheimagentbold.otf') format('opentype');
     font-weight: 700;
     font-style: normal;
 }
 
 @font-face {
-    font-family: 'Gotham HTF Book';
-    src: url('../fonts/gotham/gothamhtf-book.eot');
-    src: url('../fonts/gotham/gothamhtf-book.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-book.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-book.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
+    font-family: 'CAGeheimagent';
+    src: url('../fonts/cageheimagentbolditalic.eot');
+    src: url('../fonts/cageheimagentbolditalic.woff') format('woff'),
+        url('../fonts/cageheimagentbolditalic.svg') format('svg'),
+        url('../fonts/cageheimagentbolditalic.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
 }
-
-/*@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-bookcondensed.eot');
-    src: url('../fonts/gotham/gothamhtf-bookcondensed.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-bookcondensed.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-bookcondensed.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}*/
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-medium.eot');
-    src: url('../fonts/gotham/gothamhtf-medium.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-medium.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-medium.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-mediumcondensed.eot');
-    src: url('../fonts/gotham/gothamhtf-mediumcondensed.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-mediumcondensed.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-mediumcondensed.otf') format('opentype');
-    font-weight: 500;
-    font-style: normal;
-    font-stretch: condensed;
-}
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-light.eot');
-    src: url('../fonts/gotham/gothamhtf-light.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-light.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-light.otf') format('opentype');
-    font-weight: 300;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-lightcondensed.eot');
-    src: url('../fonts/gotham/gothamhtf-lightcondensed.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-lightcondensed.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-lightcondensed.otf') format('opentype');
-    font-weight: 300;
-    font-style: normal;
-    font-stretch: condensed;
-}
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-xlight.eot');
-    src: url('../fonts/gotham/gothamhtf-xlight.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-xlight.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-xlight.otf') format('opentype');
-    font-weight: 200;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-thin.eot');
-    src: url('../fonts/gotham/gothamhtf-thin.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-thin.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-thin.otf') format('opentype');
-    font-weight: 100;
-    font-style: normal;
-}
-
-
-/*OPEN SANS*/
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,400i');
