@@ -90,7 +90,7 @@ function makeContentPopup(id) {
     var html, marker;
 
     for (var index = 0; index < locations.length; index++) {
-        if ( locations[index][0] == id ) {
+        if ( locations[index].id == id ) {
             marker = locations[index];
             break;
         }
@@ -101,13 +101,13 @@ function makeContentPopup(id) {
     } else {
         var titulo, tag, video, texto, direccion, imagen, imagenes;
 
-        titulo = marker[5].titulo != '' ? marker[5].titulo : '';
-        tag = marker[5].tag != '' ? marker[5].tag : '';
-        texto = marker[5].excerpt != '' ? marker[5].excerpt : '';
-        imagen = marker[5].imagen != '' ? marker[5].imagen : '';
-        direccion = marker[7].direccion != '' ? marker[7].direccion : '';
-        video = marker[7].video;
-        imagenes = marker[7].imagenes;
+        titulo = marker.data.titulo != '' ? marker.data.titulo : '';
+        tag = marker.data.tag != '' ? marker.data.tag : '';
+        texto = marker.data.excerpt != '' ? marker.data.excerpt : '';
+        imagen = marker.data.imagen != '' ? marker.data.imagen : '';
+        direccion = marker.data.direccion != '' ? marker.data.direccion : '';
+        video = marker.data.video;
+        imagenes = marker.data.imagenes;
         
         html = `
             <article class="art-popup-wrapper">
@@ -253,9 +253,9 @@ function initArtLocator() {
 
     for (i = 0; i < locations.length; i++) {  
         marker = new google.maps.Marker({
-          position: new google.maps.LatLng(locations[i][2], locations[i][3]),
+          position: new google.maps.LatLng(locations[i].lat, locations[i].long),
           map: map,
-          title:locations[i][1],
+          title:locations[i].titulo,
         });
   
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
@@ -275,14 +275,14 @@ function initArtLocator() {
     //arma el contenido del marker de acuerdo al array de locations
     function makeContent(contenido) {
         var html = '';
-        if ( contenido[5] == undefined || contenido[5] == null || contenido[5] == ''  ) {
+        if ( contenido.data === undefined || contenido.data == null || contenido.data == ''  ) {
 
             html += '<div class="mapinfo-wrapper"><div style="height: 30px;"></div><h1 class="title" style="padding-bottom:2em">';
-            html +=         contenido[1];
+            html +=         contenido.titulo;
             html +=     '</h1>';
-            if ( contenido[6] && contenido[7] != undefined ) {
+            if ( contenido.data.popup ) {
                 html +=     '<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="';
-                html +=         contenido[0]
+                html +=         contenido.id;
                 html +=     '">+ Ver más</button>';
             }
             html +=  '</div>';
@@ -291,20 +291,20 @@ function initArtLocator() {
 
             html += '<div class="mapinfo-wrapper">';
             html +=    '<figure class="imagen-destacada">';
-            html +=     '<img src="' + contenido[5].imagen + '">';
+            html +=     '<img src="' + contenido.data.imagen[0] + '">';
             html +=    '</figure>';
             html +=    '<h1 class="title">';
-            html +=         contenido[5].titulo;
+            html +=         contenido.data.titulo;
             html +=     '</h1>';
             html +=    '<h5 class="tag">';
-            html +=     contenido[5].tag
+            html +=     contenido.data.tag
             html +=     '</h5>';
             html +=     '<p class="excerpt">';
-            html +=     contenido[5].excerpt
+            html +=     contenido.data.excerpt
             html +=     '</p>';
-            if ( contenido[6] && contenido[7] != undefined ) {
+            if ( contenido.data.popup ) {
                 html +=     '<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="';
-                html +=         contenido[0]
+                html +=         contenido.id;
                 html +=     '">+ Ver más</button>';
             }
             html +=  '</div>';
