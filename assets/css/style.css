@@ -10,7 +10,7 @@
 /*--------------------------------------------------------------
 1.0 Reset
 --------------------------------------------------------------*/
-@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i");
+@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap");
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -112,82 +112,35 @@ button {
 /*--------------------------------------------------------------
 2.0 Fuentes
 --------------------------------------------------------------*/
-/*GOTHAM*/
+/*CAGeheimagent*/
 @font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-black.eot");
-  src: url("../fonts/gotham/gothamhtf-black.woff") format("woff"), url("../fonts/gotham/gothamhtf-black.svg") format("svg"), url("../fonts/gotham/gothamhtf-black.otf") format("opentype");
-  font-weight: 900;
+  font-family: "CAGeheimagent";
+  src: url("../fonts/cageheimagentregular.eot");
+  src: url("../fonts/cageheimagentregular.woff") format("woff"), url("../fonts/cageheimagentregular.svg") format("svg"), url("../fonts/cageheimagentregular.otf") format("opentype");
+  font-weight: 400;
   font-style: normal;
 }
 @font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-bold.eot");
-  src: url("../fonts/gotham/gothamhtf-bold.woff") format("woff"), url("../fonts/gotham/gothamhtf-bold.svg") format("svg"), url("../fonts/gotham/gothamhtf-bold.otf") format("opentype");
+  font-family: "CAGeheimagent";
+  src: url("../fonts/cageheimagentitalic.eot");
+  src: url("../fonts/cageheimagentitalic.woff") format("woff"), url("../fonts/cageheimagentitalic.svg") format("svg"), url("../fonts/cageheimagentitalic.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "CAGeheimagent";
+  src: url("../fonts/cageheimagentbold.eot");
+  src: url("../fonts/cageheimagentbold.woff") format("woff"), url("../fonts/cageheimagentbold.svg") format("svg"), url("../fonts/cageheimagentbold.otf") format("opentype");
   font-weight: 700;
   font-style: normal;
 }
 @font-face {
-  font-family: "Gotham HTF Book";
-  src: url("../fonts/gotham/gothamhtf-book.eot");
-  src: url("../fonts/gotham/gothamhtf-book.woff") format("woff"), url("../fonts/gotham/gothamhtf-book.svg") format("svg"), url("../fonts/gotham/gothamhtf-book.otf") format("opentype");
-  font-weight: normal;
-  font-style: normal;
+  font-family: "CAGeheimagent";
+  src: url("../fonts/cageheimagentbolditalic.eot");
+  src: url("../fonts/cageheimagentbolditalic.woff") format("woff"), url("../fonts/cageheimagentbolditalic.svg") format("svg"), url("../fonts/cageheimagentbolditalic.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
 }
-/*@font-face {
-    font-family: 'Gotham HTF';
-    src: url('../fonts/gotham/gothamhtf-bookcondensed.eot');
-    src: url('../fonts/gotham/gothamhtf-bookcondensed.woff') format('woff'),
-        url('../fonts/gotham/gothamhtf-bookcondensed.svg') format('svg'),
-        url('../fonts/gotham/gothamhtf-bookcondensed.otf') format('opentype');
-    font-weight: normal;
-    font-style: normal;
-}*/
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-medium.eot");
-  src: url("../fonts/gotham/gothamhtf-medium.woff") format("woff"), url("../fonts/gotham/gothamhtf-medium.svg") format("svg"), url("../fonts/gotham/gothamhtf-medium.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-mediumcondensed.eot");
-  src: url("../fonts/gotham/gothamhtf-mediumcondensed.woff") format("woff"), url("../fonts/gotham/gothamhtf-mediumcondensed.svg") format("svg"), url("../fonts/gotham/gothamhtf-mediumcondensed.otf") format("opentype");
-  font-weight: 500;
-  font-style: normal;
-  font-stretch: condensed;
-}
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-light.eot");
-  src: url("../fonts/gotham/gothamhtf-light.woff") format("woff"), url("../fonts/gotham/gothamhtf-light.svg") format("svg"), url("../fonts/gotham/gothamhtf-light.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-lightcondensed.eot");
-  src: url("../fonts/gotham/gothamhtf-lightcondensed.woff") format("woff"), url("../fonts/gotham/gothamhtf-lightcondensed.svg") format("svg"), url("../fonts/gotham/gothamhtf-lightcondensed.otf") format("opentype");
-  font-weight: 300;
-  font-style: normal;
-  font-stretch: condensed;
-}
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-xlight.eot");
-  src: url("../fonts/gotham/gothamhtf-xlight.woff") format("woff"), url("../fonts/gotham/gothamhtf-xlight.svg") format("svg"), url("../fonts/gotham/gothamhtf-xlight.otf") format("opentype");
-  font-weight: 200;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Gotham HTF";
-  src: url("../fonts/gotham/gothamhtf-thin.eot");
-  src: url("../fonts/gotham/gothamhtf-thin.woff") format("woff"), url("../fonts/gotham/gothamhtf-thin.svg") format("svg"), url("../fonts/gotham/gothamhtf-thin.otf") format("opentype");
-  font-weight: 100;
-  font-style: normal;
-}
-/*OPEN SANS*/
 /*--------------------------------------------------------------
 3.0 variables
 --------------------------------------------------------------*/
@@ -198,8 +151,8 @@ button {
 4.0 General
 --------------------------------------------------------------*/
 html, body {
-  font-family: sans-serif;
-  color: #333;
+  font-family: "Roboto", sans-serif;
+  color: #111212;
   background-color: #fff;
   font-size: 1rem;
   line-height: 1.5rem;
@@ -220,16 +173,63 @@ html, body {
   }
 }
 
-.main-header {
-  position: absolute;
+.footer-blanco {
+  background-color: #fff;
+  padding: 2em 0;
+}
+.footer-blanco .logo-negro {
+  display: block;
+  margin: 0 auto;
+}
+
+.footer-legales {
+  background-color: #000;
+  color: #fff;
+  padding: 1em 0 0.5em;
+}
+@media (min-width: 768px) {
+  .footer-legales {
+    padding: 2.5em 0 1em;
+  }
+}
+@media (min-width: 1200px) {
+  .footer-legales {
+    padding: 2.5em 0 2em;
+  }
+}
+.footer-legales .legales {
+  display: block;
+  margin: 0 auto;
   width: 100%;
-  z-index: 11;
+  max-width: 414px;
+}
+@media (min-width: 992px) {
+  .footer-legales .legales {
+    max-width: 980px;
+  }
+}
+.footer-legales p {
+  font-family: "Arial", "Helvetica", sans-serif;
+  font-size: 0.8rem;
+  text-align: center;
+  margin-top: 0.5em;
+}
+@media (min-width: 768px) {
+  .footer-legales p {
+    margin-top: 0.8em;
+  }
+}
+
+.main-header {
+  position: relative;
+  width: 100%;
+  z-index: 1;
   padding: 1rem;
-  background-color: #f2f2f2;
-  -webkit-box-shadow: 1px -1px 5px #333;
-  -moz-box-shadow: 1px -1px 5px #333;
-  -ms-box-shadow: 1px -1px 5px #333;
-  box-shadow: 1px -1px 5px #333;
+  background-color: #F8F8F8;
+  -webkit-box-shadow: 1px -1px 5px #111212;
+  -moz-box-shadow: 1px -1px 5px #111212;
+  -ms-box-shadow: 1px -1px 5px #111212;
+  box-shadow: 1px -1px 5px #111212;
 }
 .main-header .brand-name {
   text-align: center;
@@ -244,13 +244,12 @@ html, body {
   position: relative;
   z-index: 1;
 }
-@media (min-width: 992px) {
-  .main-wrapper {
-    height: 100%;
-  }
+
+.map-section {
+  background-color: #F8F8F8;
 }
 @media (min-width: 992px) {
-  .main-wrapper .inner-wrapper {
+  .map-section {
     height: 100%;
     display: flex;
     display: -o-flex;
@@ -267,7 +266,7 @@ html, body {
 
 .map-wrapper {
   overflow: hidden;
-  background-color: #f2f2f2;
+  background-color: #F8F8F8;
   height: 500px;
 }
 @media (min-width: 992px) {
@@ -332,8 +331,8 @@ html, body {
   cursor: pointer;
   position: relative;
   padding: 0.8em 2em;
-  color: #FE6490;
-  border: 1px solid #FE6490;
+  color: #ff2638;
+  border: 1px solid #ff2638;
 }
 .content-wrapper .content .button-wrapper .btn-location:hover {
   zoom: 1;
@@ -343,7 +342,7 @@ html, body {
   cursor: pointer;
   display: block;
   width: 100%;
-  background-color: #FE6490;
+  background-color: #ff2638;
   color: #fff;
   padding: 0.8em 2em;
   text-transform: uppercase;
@@ -354,7 +353,7 @@ html, body {
   opacity: 0.8;
 }
 .content-wrapper .content .btn-volver {
-  color: #FE6490;
+  color: #ff2638;
   font-size: 0.8rem;
   line-height: 1.2rem;
 }
@@ -368,14 +367,14 @@ html, body {
 }
 
 .mapinfo-wrapper {
-  background-color: #FE6490;
+  background-color: #ff2638;
 }
 .mapinfo-wrapper .imagen-destacada {
   position: relative;
   width: 100%;
   height: 120px;
   overflow: hidden;
-  background-color: #f2f2f2;
+  background-color: #F8F8F8;
 }
 @media (min-width: 992px) {
   .mapinfo-wrapper .imagen-destacada {
@@ -477,7 +476,7 @@ html, body {
   position: relative;
   overflow: hidden;
   overflow-y: auto;
-  background-color: #f2f2f2;
+  background-color: #F8F8F8;
   width: 100%;
   height: 100%;
 }
@@ -523,7 +522,7 @@ html, body {
 }
 @media (min-width: 992px) {
   .more-content-wrapper .more-content-inner .contenedor .close-btn .tog1 {
-    background-color: #FE6490;
+    background-color: #ff2638;
   }
 }
 .more-content-wrapper .more-content-inner .contenedor .close-btn .tog2 {
@@ -541,7 +540,7 @@ html, body {
 }
 @media (min-width: 992px) {
   .more-content-wrapper .more-content-inner .contenedor .close-btn .tog2 {
-    background-color: #FE6490;
+    background-color: #ff2638;
   }
 }
 .more-content-wrapper .more-content-inner .contenedor .contenido {
@@ -560,7 +559,7 @@ html, body {
   }
 }
 .art-popup-wrapper .video-wrapper {
-  background-color: #FE6490;
+  background-color: #ff2638;
   position: relative;
   height: 100vh;
 }
@@ -661,7 +660,7 @@ html, body {
   }
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper {
-  background-color: #FE6490;
+  background-color: #ff2638;
   padding: 1.5em 2em;
   color: #fff;
 }
@@ -712,11 +711,11 @@ html, body {
 
 .gm-style-iw-d {
   overflow: hidden !important;
-  background-color: #FE6490;
+  background-color: #ff2638;
 }
 
 .gm-style .gm-style-iw-t::after {
-  background-color: #FE6490 !important;
+  background-color: #ff2638 !important;
   z-index: -4 !important;
 }
 
