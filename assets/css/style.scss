@@ -925,12 +925,15 @@ html, body {
 
 .more-content-wrapper {
     display: none;
-    position: absolute;
-    z-index: 11;
+    position: fixed;
+    z-index: 8;
     width: 100%;
     height: 100%;
     top: 0;
     left: 0;
+    @media (min-width: $md) {
+        position: absolute;
+    }
 
     .more-content-inner {
         background-color: rgba(0,0,0,0.5);
@@ -962,59 +965,24 @@ html, body {
             width: 100%;
             height: 100%;
 
-            @media (min-width: $sm) {
-                width: 90%;
-                height: 90%;
-            }
-
-            @media (min-width: $md) {
-                overflow-y: hidden;
-                width: 80%;
-                height: auto;
-            }
-
             .close-btn {
                 position: absolute;
-                top: 1em;
-                right: 1em;
+                top: 50px;
+                left: $paddingLeftRight;
                 display: block;
-                width: 3em;
-                height: 3em;
+                width: 30px;
+                height: 24px;
                 cursor: pointer;
                 z-index: 111;
+                background-image: url(../images/arrow-white.svg);
+                background-repeat: no-repeat;
+                background-size: 30px 24px;
 
                 &:hover {
                     zoom: 1;
                     opacity: 0.8;
                   }
 
-                .tog1 {
-                    display: block;
-                    position: absolute;
-                    width: 80%;
-                    height: .2em;
-                    top: 50%;
-                    left: 10%;
-                    @include transform(rotate(45deg));
-                    background-color: $color-blanco;
-
-                    @media (min-width: $md) {
-                        background-color: $color-rojo-fondo;
-                    }
-                }
-                .tog2 {
-                    display: block;
-                    position: absolute;
-                    width: 80%;
-                    height: .2em;
-                    top: 50%;
-                    left: 10%;
-                    @include transform(rotate(-45deg));
-                    background-color: $color-blanco;
-                    @media (min-width: $md) {
-                        background-color: $color-rojo-fondo;
-                    }
-                }
             }//.close-btn
 
             .contenido {
@@ -1056,14 +1024,16 @@ html, body {
             position: absolute;
             color: $color-blanco;
             bottom: 2em;
-            left: 2em;
+            left: $paddingLeftRight;
             h1 {
-                font-weight: bold;
-                font-size: 1rem;
+                font-weight: 700;
+                font-family: $fuente-secundaria;
+                font-size: 36px;
+                line-height: 36px;
             }
             h5 {
-                font-size: .7rem;
-                line-height: 1.2rem;
+                font-size: 14px;
+                line-height: 14px;
             }
         }//.title
 
@@ -1097,10 +1067,11 @@ html, body {
                 @include transform(translate(-50%,-50%));
                 display: block;
                 z-index: 11;
-                height: 40px;
-                width: 40px;
-                background-color: $color-blanco;
+                height: 100px;
+                width: 100px;
                 cursor: pointer;
+                background-image: url(../images/icon-video-transparente.svg);
+                background-size: 100px 100px;
                 &:hover {
                     zoom: 1;
                     opacity: 0.8;
@@ -1119,78 +1090,83 @@ html, body {
     }//.video-wrapper
 
     .contenido-wrapper {
-        @media (min-width: $md) {
-            width: 50%;
-            height: 100%;
-            display: flex;
-            display: -o-flex;
-            display: -ms-flex;
-            display: -moz-flex;
-            display: -webkit-flex;
-            -webkit-flex-direction: column-reverse;
-            -moz-flex-direction: column-reverse;
-            -ms-flex-direction: column-reverse;
-            -o-flex-direction: column-reverse;
-            flex-direction: column-reverse;
-        }
+        background-color: $color-blanco;
+        color: $color-gris;   
+        padding: 50px $paddingLeftRight 90px;
+
+        .wrapper-fav {
+            position: relative;
+            z-index: 1;
+            display: block;
+            width: 100%;
+            height: 30px;
+    
+            .number {
+                position: relative;
+                font-size: 16px;
+                line-height: 18px;
+                color: $color-gris2;
+                font-weight: 500;
+    
+                &::after {
+                    content: "";
+                    height: 24px;
+                    width: 24px;
+                    display: inline-block;
+                    margin-left: 5px;
+                    background-image: url(../images/corazon.svg);
+                    background-size: 24px 24px;
+                    position: absolute;
+                    right: -34px;
+                    top: 50%;
+                    @include transform(translateY(-50%));
+                }
+            }//.number
+        }//.wrapper-fav 
 
         .text-wrapper {
-            background-color: $color-rojo-fondo;
-            padding: 1.5em 2em;
-            color: $color-blanco;
-
-            @media (min-width: $md) {
-                display: flex;
-                display: -o-flex;
-                display: -ms-flex;
-                display: -moz-flex;
-                display: -webkit-flex;
-                -webkit-justify-content: space-between;
-                -moz-justify-content: space-between;
-                -ms-justify-content: space-between;
-                -o-justify-content: space-between;
-                justify-content: space-between;
-            }
             
             .text {
-                font-size: .7rem;
-                line-height: 1.2rem;
-                @media (min-width: $md) {
-                    width: 55%;
-                }
+                font-size: 16px;
+                font-weight: 300;
+                margin: 25px 0;
             }
 
-            .direcion {
-                display: none;
-                @media (min-width: $md) {
-                    width: 40%;
-                    display: block;
-                    font-size: .9rem;
-                    text-align: right;
+            .direccion {
+                font-size: 12px;
+                line-height: 15px;
+                padding: 0 10px;
+                text-transform: uppercase;
+                margin-bottom: 0;
+                margin-left: -5px;
+        
+                &::before {
+                    content: '';
+                    margin-right: 5px;
+                    height: 21px;
+                    width: 15px;
+                    display: inline-block;
+                    margin-left: 5px;
+                    vertical-align: middle;
+                    background-image: url(../images/pin-icon-black.svg);
+                    background-size: 15px 21px;
                 }
             }
         }//.text-wrapper
-
-        .galeria-wrapper {
-            @media (min-width: $md) {
-                height: 500px;
-                overflow: hidden;
-            }
-        }
-        
     }//.contenido-wrapper
+    
+    .galeria-wrapper {
+        @media (min-width: $md) {
+            height: 500px;
+            overflow: hidden;
+        }
+    }
 }//.art-popup-wrapper
 
 
 //contenido del mapa, hacerlo con js
 .gm-style .gm-style-iw-c {
     padding: 0!important;
-
-    > button {
-        z-index: 99;
-        @include border-radius(50%!important);
-        background: $color-rojo-btn!important;
-    }
 }
 
 .gm-style-iw-d {

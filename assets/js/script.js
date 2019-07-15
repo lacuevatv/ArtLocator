@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('load', function() {
     
     console.log('load');
-
+    openMore(1);
 });
 
 /*
@@ -25,7 +25,6 @@ function openMore (id) {
     var contenido = document.querySelector('#contenido');
     var closeButton = document.querySelector('#close-btn');
 
-    
     if ( contenido.getAttribute('data-id') != id ) {
 
         //remueve el contenido
@@ -35,7 +34,6 @@ function openMore (id) {
         var html = makeContentPopup(id);
 
         contenido.innerHTML = html;
-        
 
         //activa galeria before after
         var dataGaleria = document.querySelector('#data-before-after');
@@ -55,8 +53,8 @@ function openMore (id) {
 
     //asigna el tamaño al contenedor interno
     setTimeout( function(){
-        contenedor.style.width = window.innerWidth + 'px';
-        contenedor.style.height = window.innerHeight + 'px';
+        contenedor.style.width = wrapper.getBoundingClientRect().width + 'px';
+        contenedor.style.height = wrapper.getBoundingClientRect().height + 'px';
     },100);
     
     //agrega el evento para cerrar la ventana
@@ -98,7 +96,7 @@ function makeContentPopup(id) {
     if ( marker == undefined ) {
         html = '<p>No se encontró el  contenido</p>';
     } else {
-        var titulo, tag, video, texto, direccion, imagen, imagenes;
+        var titulo, tag, video, texto, direccion, imagen, imagenes, likes;
 
         titulo = marker.data.titulo != '' ? marker.data.titulo : '';
         tag = marker.data.tag != '' ? marker.data.tag : '';
@@ -107,6 +105,7 @@ function makeContentPopup(id) {
         direccion = marker.data.direccion != '' ? marker.data.direccion : '';
         video = marker.data.video;
         imagenes = marker.data.imagenes;
+        likes = marker.likes != '' ? marker.likes : '';
         
         html = `
             <article class="art-popup-wrapper">
@@ -122,7 +121,7 @@ function makeContentPopup(id) {
                     <div class="video">
                         <button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
 
-                        html +=  '<video id="videolocator" height="100%" poster="'+imagen+'">';
+                        html +=  '<video id="videolocator" height="100%" poster="'+imagen[0]+'">';
                             for (var i = 0; i < video.length; i++) {
                                 html += '<source src="'
                                 
@@ -138,24 +137,35 @@ function makeContentPopup(id) {
                                     }
                                 html += '">'
                             }
-                            html += '<img src="'+imagen+'">';
+                            html += '<img src="'+imagen[0]+'">';
                         html += '</video>';
 
         html +=     `</div>
                 </div>
                 `;
         html += `        
-                <div class="contenido-wrapper">
+                <div class="contenido-wrapper">`;
+
+        if ( likes != '' ) {
+            html +=     `
+                        <div class="wrapper-fav">
+                            <span class="number">`
+                                +likes+
+                            `
+                            </span>
+                        </div>`;
+        }
+        html +=     `
                     <div class="text-wrapper">
                         <div class="text">`
                             + texto + 
                         `</div>
-                        <div class="direcion">`
+                        <div class="direccion">`
                             + direccion +
                         `</div>
                     </div>
-
-                    <div class="galeria-wrapper">
+                </div>
+                <div class="galeria-wrapper">
                 `;
                     //galeria antes y despuess
                     if ( imagenes.length == 2 && ( imagenes[0] != '' || imagenes[1] != ''  ) ) {
@@ -175,10 +185,9 @@ function makeContentPopup(id) {
                         }
                         
                     } else {
-                        html += '<img src="'+imagen+'">';
+                        html += '<img src="'+imagen[0]+'">';
                     }
         html += ` 
-                    </div>
                 </div>
             </article>
         `;
@@ -336,15 +345,21 @@ function initArtLocator() {
 
         //colocar el boton
         var btnCloseMarker = document.querySelector('.gm-style-iw-c').children[1];
-        btnCloseMarker.style.backgroundColor = '#000';
+        btnCloseMarker.style.backgroundColor = '#fff';
+        btnCloseMarker.style.width = '40px';
+        btnCloseMarker.style.height = '40px';
         btnCloseMarker.style.top = '0.5em';
         btnCloseMarker.style.right = '1em';
-        //cambiar la cruz a blanco
+        btnCloseMarker.style.zIndex = '999';
+        btnCloseMarker.style.borderRadius = '50%';
+        //cambiar la cruz a blanco y editar estilos
         var imgCruz = btnCloseMarker.children[0];
+        var imgSVG = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCI+PGRlZnM+PHN0eWxlPi5he2ZpbGw6bm9uZTt9LmJ7Y2xpcC1wYXRoOnVybCgjYSk7fS5je2ZpbGw6I2ZmZjt9LmR7ZmlsbDojM2UzZTNlO308L3N0eWxlPjxjbGlwUGF0aCBpZD0iYSI+PHJlY3QgY2xhc3M9ImEiIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIvPjwvY2xpcFBhdGg+PC9kZWZzPjxnIGNsYXNzPSJiIj48Y2lyY2xlIGNsYXNzPSJjIiBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiLz48cGF0aCBjbGFzcz0iZCIgZD0iTTguNzUsMjBWMTEuMjVIMFY4Ljc1SDguNzVWMGgyLjVWOC43NUgyMHYyLjVIMTEuMjVWMjBaIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSg2IDIwLjE0Mikgcm90YXRlKC00NSkiLz48L2c+PC9zdmc+'
         
-        var imgSVG = 'data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNi4yLjEsIFNWRyBFeHBvcnQgUGx1Zy1JbiAuIFNWRyBWZXJzaW9uOiA2LjAwIEJ1aWxkIDApICAtLT4NCjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+DQo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB3aWR0aD0iNTEycHgiIGhlaWdodD0iNTEycHgiIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiBzdHlsZT0iZW5hYmxlLWJhY2tncm91bmQ6bmV3IDAgMCA1MTIgNTEyOyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+DQo8cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNNDM3LjUsMzg2LjZMMzA2LjksMjU2bDEzMC42LTEzMC42YzE0LjEtMTQuMSwxNC4xLTM2LjgsMC01MC45Yy0xNC4xLTE0LjEtMzYuOC0xNC4xLTUwLjksMEwyNTYsMjA1LjFMMTI1LjQsNzQuNQ0KCWMtMTQuMS0xNC4xLTM2LjgtMTQuMS01MC45LDBjLTE0LjEsMTQuMS0xNC4xLDM2LjgsMCw1MC45TDIwNS4xLDI1Nkw3NC41LDM4Ni42Yy0xNC4xLDE0LjEtMTQuMSwzNi44LDAsNTAuOQ0KCWMxNC4xLDE0LjEsMzYuOCwxNC4xLDUwLjksMEwyNTYsMzA2LjlsMTMwLjYsMTMwLjZjMTQuMSwxNC4xLDM2LjgsMTQuMSw1MC45LDBDNDUxLjUsNDIzLjQsNDUxLjUsNDAwLjYsNDM3LjUsMzg2LjZ6Ii8+DQo8L3N2Zz4NCg==';
-
         imgCruz.setAttribute('src', imgSVG);
+        imgCruz.style.width = '40px';
+        imgCruz.style.height = '40px';
+        imgCruz.style.margin = '0';
 
     });
 }
