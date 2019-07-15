@@ -105,7 +105,9 @@ html, body {
     @media (min-width: $sm) {
         height: 100vh;
     }
-    
+    @media (min-width: $md) and (max-height: 500px) {
+        height: 600px;
+    }
 
     .background-header {
         position: absolute;
@@ -118,6 +120,7 @@ html, body {
 
         img {
             position: absolute;
+            z-index: 1;
             left: 50%;
             transform: translateX(-50%);
             height: 100%;
@@ -127,11 +130,33 @@ html, body {
                 height: auto;
                 width: 120%; 
             }
-            @media (min-width: $xlg) {
+            @media (min-width: $lg) {
                 height: auto;
                 width: 120%;
             }
         }
+
+        .video-header {
+            position: absolute;
+            z-index: 11;
+        }
+
+        .degradado{
+            position: absolute;
+            z-index: 111;
+            display: block;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.5+0,0+100 */
+            background: -moz-linear-gradient(left,  rgba(0,0,0,0.5) 0%, rgba(0,0,0,0) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(left,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to right,  rgba(0,0,0,0.5) 0%,rgba(0,0,0,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#80000000', endColorstr='#00000000',GradientType=1 ); /* IE6-9 */
+
+        }
+
     }//.background-header
 
     .header-content {
@@ -254,7 +279,7 @@ html, body {
             @media (min-width: $xlg) {
                 font-size: 24px;
                 line-height: 30px;
-                padding-right: 170px;
+                padding-right: 670px;
             }
         }
 
@@ -316,8 +341,7 @@ html, body {
     width: 100%;
     padding: 113px $paddingLeftRight 5px;
     @media (min-width: $md) {
-        padding: 0 $paddingLeftRightMD;
-        height: 100vh;
+        padding: 100px $paddingLeftRightMD 80px;
         display: flex;
         display: -o-flex;
         display: -ms-flex;
@@ -329,13 +353,12 @@ html, body {
         -o-align-items: center;
         align-items: center;
     }
+
     @media (min-width: $lg) {
-        padding: 0 $paddingLeftRightLG;
-        height: 100vh;
+        padding: 100px $paddingLeftRightLG;
     }
     @media (min-width: $xlg) {
-        padding: 0 $paddingLeftRightXLG;
-        height: 100vh;
+        padding: 190px $paddingLeftRightXLG;
     }
 
     .wrapper-art {
@@ -498,13 +521,17 @@ html, body {
         -o-justify-content: space-between;
         justify-content: space-between;
     }
+
+    @media (min-width: $md) and (max-height: 500px) {
+        height: 600px;
+    }
 }//.map-section
 
 .map-wrapper {
     position: relative;
     overflow: hidden;
     background-color: $color-gris-fondo;
-    height: 500px;
+    height: 560px;
     @media (min-width: $md) {
         width: 50%;
         height: 100%;
@@ -535,7 +562,7 @@ html, body {
     }
 
     .content {
-        padding: 75px $paddingLeftRight 50px;
+        padding: 113px $paddingLeftRight 50px;
         @media (min-width: $md) {
             padding: 1rem 1rem 1rem $paddingLeftRightMD;
             width: 80%;
@@ -547,15 +574,29 @@ html, body {
         @media (min-width: $xlg) {
             padding: 1rem 1rem 1rem $paddingLeftRightXLG;
             width: 70%;
+            padding-top: 75px;
         }
 
         h2 {
+            position: relative;
             text-transform: uppercase;
             font-size: 90px;
             line-height: 64px;
             font-family: $fuente-secundaria;
             font-weight: 700;
             margin-bottom: 10px;
+
+            &::before {
+                content: '';
+                display: block;
+                width: 29px;
+                height: 40px;
+                background-image: url(../images/aerosol.svg);
+                background-size: 29px 40px;
+                position: absolute;
+                top: -75px;
+                left: 0;
+            }
         }
 
         p {
@@ -648,6 +689,9 @@ html, body {
                 @media (min-width: $md) {
                     margin-top: 100px;
                 }
+                @media (min-width: $xlg) {
+                    margin-top: 200px;
+                }
 
                 &:hover {
                     zoom: 1;
@@ -689,70 +733,190 @@ html, body {
 }//.content-wrapper
 
 .mapinfo-wrapper {
-    background-color: $color-rojo-fondo;
+    background-color: $color-blanco;
 
     .imagen-destacada {
         position: relative;
         width: 100%;
-        height: 120px;
+        height: 100px;
         overflow: hidden;
         background-color: $color-gris-fondo;
-        @media (min-width: $md) {
+        @media (min-width: $sm) {
             height: 150px;
         }
+        @media (min-width: $md) {
+            height: 250px;
+        }
+
+        &::before {
+            content: '';
+            height: 22px;
+            width: 35px;
+            display: block;
+            background-repeat: no-repeat;
+            background-image: url(../images/aerosol.svg);
+            background-size: 14px 14px;
+            position: absolute;
+            z-index: 11;
+            left: 5px;
+            top: 10px;
+        }
+
         > img {
             position: absolute;
+            z-index: 1;
             top: 50%;
             left: 50%;
             width: 130%;
             height: auto;
             @include transform(translate3d(-50%,-50%,0));
         }
+
+        .wrapper-fav {
+            position: absolute;
+            z-index: 111;
+            right: 12px;
+            bottom: 10px;
+            display: block;
+            background-color: $color-blanco;
+            width: 60px;
+            height: 30px;
+            @include border-radius(15px);
+            display: flex;
+            display: -o-flex;
+            display: -ms-flex;
+            display: -moz-flex;
+            display: -webkit-flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            -o-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -o-justify-content: center;
+            justify-content: center;
+    
+            .number {
+                font-size: 12px;
+                line-height: 18px;
+                color: $color-gris2;
+                font-weight: 500;
+    
+                &::after {
+                    content: '';
+                    height: 14px;
+                    width: 14px;
+                    display: inline-block;
+                    margin-left: 5px;
+                    vertical-align: sub;
+                    background-image: url(../images/corazon.svg);
+                    background-size: 14px 14px;
+                }
+            }//.number
+        }//.wrapper-fav 
+
     }//.imagen-destacada
 
     .title {
-        color: $color-blanco;
-        font-size: 1rem;
-        margin: 1em 0 .2em;
-        padding: 0 10px;
+        color: $color-gris;
+        font-size: 18px;
+        line-height: 18px;
+        font-family: $fuente-secundaria;
+        font-weight: 700;
+        margin: 10px 0 0;
+        padding: 0 15px;
         font-weight: bold;
+        @media (min-width: $sm) {
+            font-size: 25px;
+            line-height: 24px;
+            margin: 33px 0 0;
+            padding: 0 30px;
+        }
     }
 
     .tag {
-        color: $color-blanco;
-        font-size: .7rem;
-        line-height: 1rem;
+        color: $color-gris;
+        font-size: 10px;
+        line-height: 10px;
         margin: 0 0 1em;
-        padding: 0 10px;
+        padding: 0 15px;
+        @media (min-width: $sm) {
+            font-size: 12px;
+            line-height: 12px;
+            margin: 0 0 2em;
+            padding: 0 30px;
+        }
+    }
+
+    .excerpt {
+        color: $color-gris;
+        font-size: 12px;
+        line-height: 13px;
+        padding: 0 15px;
+        margin: 1em 0 2em;
+        @media (min-width: $sm) {
+            margin: 0 0 1em;
+            font-size: 14px;
+            line-height: 18px;
+            padding: 0 30px;
+        }
         @media (min-width: $md) {
             margin: 0 0 2em;
         }
     }
 
-    .excerpt {
-        color: $color-blanco;
-        font-size: .7rem;
-        line-height: 1rem;
+    .direccion {
+        font-size: 10px;
+        line-height: 15px;
         padding: 0 10px;
-        margin: 0 0 1em;
+        text-transform: uppercase;
+        margin-bottom: 15px;
+        @media (min-width: $sm) {
+            font-size: 12px;
+            line-height: 15px;
+            padding: 0 25px;
+            margin-bottom: 30px;
+        }
 
-        @media (min-width: $md) {
-            margin: 0 0 2em;
+        &::before {
+            content: '';
+            margin-right: 5px;
+            height: 21px;
+            width: 15px;
+            display: inline-block;
+            margin-left: 5px;
+            vertical-align: middle;
+            background-image: url(../images/pin-icon-black.svg);
+            background-size: 15px 21px;
         }
     }
 
     .ver-mas-btn {
         cursor: pointer;
+        background-color: $color-rojo-btn;
         position: relative;
         display: block;
-        margin: 1em 10px 0;
-        padding: 1em .5em 1.5em;
+        font-size: 10px;
+        margin: 5px 15px 20px;
+        padding: .5em 1em;
         color: $color-blanco;
-        text-transform: uppercase;
-        font-size: 1rem;
+        font-weight: 300;
+        @media (min-width: $sm) {
+            font-size: 12px;
+            margin: 10px 30px 33px;
+            padding: 1em;
+        }
+
         &:hover {
             zoom: 1;
             opacity: 0.8;
+        }
+
+        &::after {
+            content: '>';
+            margin-left: 5px;
         }
     }//.ver-mas-btn
 
@@ -1021,15 +1185,21 @@ html, body {
 //contenido del mapa, hacerlo con js
 .gm-style .gm-style-iw-c {
     padding: 0!important;
+
+    > button {
+        z-index: 99;
+        @include border-radius(50%!important);
+        background: $color-rojo-btn!important;
+    }
 }
 
 .gm-style-iw-d {
     overflow: hidden!important;
-    background-color: $color-rojo-fondo;
+    background-color: transparent
 }
 
 //flechita
 .gm-style .gm-style-iw-t::after {
-    background-color: $color-rojo-fondo!important;
+    background-color: $color-blanco!important;
     z-index: -4!important;
 }

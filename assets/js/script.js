@@ -68,7 +68,6 @@ function closeMore() {
     var wrapper = document.querySelector('.more-content-wrapper');
     var contenedor = document.querySelector('.more-content-inner ');
 
-
     //asigna el tamaño al contenedor interno para que vuelva a cero
     contenedor.style.width = '0';
     contenedor.style.height = '0';
@@ -291,7 +290,16 @@ function initArtLocator() {
 
             html += '<div class="mapinfo-wrapper">';
             html +=    '<figure class="imagen-destacada">';
-            html +=     '<img src="' + contenido.data.imagen[0] + '">';
+            if ( contenido.data.imagen.length > 0 && contenido.data.imagen[0] != '') {
+                html +=     '<img src="' + contenido.data.imagen[0] + '"';
+                if ( contenido.data.imagen.length > 1 ) {
+                    html +=     'srcset="' + contenido.data.imagen[0] + ' 1x, ' + contenido.data.imagen[1] + ', 2x"';
+                }
+                html +=    '>';
+            }
+            if ( parseInt(contenido.likes) > 0 ) {
+                html +=        '<div class="wrapper-fav"><span class="number">' + contenido.likes + '</span></div>';
+            }
             html +=    '</figure>';
             html +=    '<h1 class="title">';
             html +=         contenido.data.titulo;
@@ -302,10 +310,13 @@ function initArtLocator() {
             html +=     '<p class="excerpt">';
             html +=     contenido.data.excerpt
             html +=     '</p>';
+            html +=     '<address class="direccion">';
+            html +=     contenido.data.direccion;
+            html +=     '</address>';
             if ( contenido.data.popup ) {
                 html +=     '<button onclick="openMoreId(this)" id="vermas-btn-marker" class="ver-mas-btn" data-id="';
                 html +=         contenido.id;
-                html +=     '">+ Ver más</button>';
+                html +=     '">Ver más</button>';
             }
             html +=  '</div>';
 
