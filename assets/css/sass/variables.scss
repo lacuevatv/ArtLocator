@@ -8,19 +8,20 @@ $color-negro: #111212;
 $color-gris: #3e3e3e;
 $color-gris2: #707070;
 $color-gris-fondo:#F8F8F8;
-$color-rojo-btn:#ff2638;
 $color-rojo-fondo:#ff2638;
+$color-rojo-btn:$color-rojo-fondo;
+
 
 $transitionSpeed: 500ms;
 $transitionSpeedx2: 800ms;
 
-$paddingLeftRight: 2rem;
-$paddingLeftRightMD: 4rem;
-$paddingLeftRightLG: 4rem;
-$paddingLeftRightXLG: 6rem;
+$paddingLeftRight: 36px;
+$paddingLeftRightMD: 75px;
+$paddingLeftRightLG: 175px;
+$paddingLeftRightXLG: 266px;
 
 /*GRID OPTIONS*/
-$xs: 576px; //<576px
+$xs: 565px; //<576px
 $sm: 768px; //<768px
 $md: 992px; //<992px
 $lg: 1200px; //<1200px
@@ -52,4 +53,34 @@ $xlg: 1600px;
      -moz-transform: $var;
       -ms-transform: $var;
           transform: $var;
+}
+
+.mob-only {
+  @media (min-width: $xs) {
+      display: none;
+  }
+}
+.xs-only {
+  display: none;
+  @media (min-width: $xs) {
+      display: block;
+  }
+  @media (min-width: $sm) {
+    display: none;
+  }
+}
+.sm-only {
+  display: none;
+  @media (min-width: $sm) {
+    display: block;
+  }
+  @media (min-width: $md) {
+    display: none;
+  }
+}
+.md-only {
+  display: none;
+  @media (min-width: $md) {
+      display: block;
+  }
 }
