@@ -189,6 +189,17 @@ function makeContentPopup(id) {
                     }
         html += ` 
                 </div>
+                <div class="wrapper-pag">
+                    <span id="pops-pag-left" class="pag-direction"></span>
+                    <span id="pops-pag-right" class="pag-direction"></span>
+                    <ul class="pagination-art">
+                        <li class="activo"></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
             </article>
         `;
     }

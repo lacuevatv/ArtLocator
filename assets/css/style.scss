@@ -420,6 +420,7 @@ html, body {
         padding: 2rem 0 1rem;
 
         li {
+            @include transition(all $transitionSpeed);
             height: 4px;
             width: 41px;
             background-color: #e6e6e6;
@@ -974,9 +975,10 @@ html, body {
                 height: 24px;
                 cursor: pointer;
                 z-index: 111;
-                background-image: url(../images/arrow-white.svg);
+                background-image: url(../images/arrow-back.svg);
                 background-repeat: no-repeat;
                 background-size: 30px 24px;
+                @include transform(rotate(180deg));
 
                 &:hover {
                     zoom: 1;
@@ -997,26 +999,19 @@ html, body {
 //articulo que sería el contenido interno que va en contenido
 .art-popup-wrapper {
 
-    @media (min-width: $md) {
-        height: 100%;
-        display: flex;
-        display: -o-flex;
-        display: -ms-flex;
-        display: -moz-flex;
-        display: -webkit-flex;
-    }
-
     .video-wrapper {
-        background-color: $color-rojo-fondo;
+        background-color: $color-negro;
         position: relative;
         height: 100vh;
         @media (min-width: $sm) {
             height: 500px;
         }
         @media (min-width: $md) {
-            height: auto;
-            width: 50%;
+            height: 350px;
             overflow: hidden;
+        }
+        @media (min-width: $lg) {
+            height: 450px;
         }
 
         .title-wrapper {
@@ -1161,6 +1156,73 @@ html, body {
             overflow: hidden;
         }
     }
+
+    .wrapper-pag {
+        position: relative;
+        height: 100px;
+        
+        .pag-direction {
+            position: absolute;
+            display: block;
+            width: 15%;
+            height: 100%;
+            top: 50%;
+            @include transform(translateY(-50%));
+            background-image: url(../images/arrow-back.svg);
+            background-size: 30px 24px;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        #pops-pag-left {
+            left: 0;
+            @include transform(translateY(-50%) rotate(180deg));
+        }
+
+        #pops-pag-right {
+            right: 0;
+        }
+
+        .pagination-art {
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            @include transform(translateY(-50%));
+            height: 100%;
+            width: 70%;
+            display: flex;
+            display: -o-flex;
+            display: -ms-flex;
+            display: -moz-flex;
+            display: -webkit-flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            -o-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -o-justify-content: center;
+            justify-content: center;
+    
+            li {
+                @include transition(all $transitionSpeed);
+                height: 4px;
+                width: 41px;
+                background-color: #e6e6e6;
+                margin-right: 2px;
+    
+                &:last-child {
+                    margin-right: none;
+                }
+            }
+            li.activo {
+                background-color: $color-rojo-fondo;
+            }
+            
+        }
+    }//.wrapper-pag
 }//.art-popup-wrapper
 
 
