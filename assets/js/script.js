@@ -2,17 +2,18 @@
  * File script.js
  *
 */
-document.addEventListener('DOMContentLoaded', function() {
+/*document.addEventListener('DOMContentLoaded', function() {
     
     console.log('ready');
     
-});
+});*/
 
 
 window.addEventListener('load', function() {
     
-    console.log('load');
-    openMore(1);
+    //console.log('load');
+    //inicia el mapa
+    initArtLocator();
 });
 
 /*
@@ -223,6 +224,7 @@ function videoToogle(el) {
  * google maps api y markers
 */
 function initMap() {
+    console.log('hola')
     google.maps.event.addDomListener(window, 'load', initArtLocator);
 }
 
