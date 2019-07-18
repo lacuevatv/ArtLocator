@@ -1,2 +1,3 @@
-web/assets/css/.sass-cache/*
+public/assets/css/.sass-cache/*
+public/contenido/
 .DS_Store
