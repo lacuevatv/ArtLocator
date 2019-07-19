@@ -2,18 +2,22 @@
  * File script.js
  *
 */
+var baseurl = window.location.href;
+var ajaxFile = window.location.href + 'inc/backend_api.php';
+var centerMapDefault = [-34.591444, -58.428068];
+var numeroPagina = 0;
 /*document.addEventListener('DOMContentLoaded', function() {
     
     console.log('ready');
     
 });*/
 
-
 window.addEventListener('load', function() {
     
     //console.log('load');
     //inicia el mapa
-    initArtLocator();
+    //initArtLocator();
+
 });
 
 /*
@@ -236,7 +240,7 @@ function openMoreId(object) {
 
 function initArtLocator() {
 
-    var center = new google.maps.LatLng(centerMap[0], centerMap[1]);
+    var center = new google.maps.LatLng(centerMapDefault[0], centerMapDefault[1]);
 
     var colores = [
         {
@@ -375,4 +379,132 @@ function initArtLocator() {
         imgCruz.style.margin = '0';
 
     });
+}//initartlocator
+
+/*
+ * FUNCIONES AJAX
+*/
+//recupera el contenido buscando locations
+function getLocationsByUbicacion( ubicacion ) {
+    var objAjax;
+    var parametros = 'function=load-locations-ubicacion';
+    if ( ubicacion != null ) {
+        parametros += '&' + ubicacion;
+    }
+    
+    objAjax = new XMLHttpRequest();
+    objAjax.addEventListener('load', cargarCampos);
+    objAjax.addEventListener('error', errorAjax);
+
+    objAjax.open('POST', ajaxFile);
+
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    objAjax.send(parametros);
+
+    function cargarCampos() {
+
+        if (objAjax.status != 200) {
+            errorAjax();
+        } else {
+            //console.log(objAjax.responseText);
+            
+            var resultado = JSON.parse(objAjax.responseText);
+            
+            console.log(resultado);
+
+            return resultado;
+        }
+    }
+
+    function errorAjax() {
+        console.log('error');
+
+        var error = objAjax.status;
+
+        return error;
+    }
+
+}
+
+function getLocationsPaginatedByDate( actualPage ) {
+    var objAjax;
+
+    var parametros = 'function=load-locations-by-last-date-paginated';
+    parametros += '&pagina='+actualPage;
+    
+    objAjax = new XMLHttpRequest();
+    objAjax.addEventListener('load', cargarCampos);
+    objAjax.addEventListener('error', errorAjax);
+
+    objAjax.open('POST', ajaxFile);
+
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    objAjax.send(parametros);
+
+    function cargarCampos() {
+
+        if (objAjax.status != 200) {
+            errorAjax();
+        } else {
+            //console.log(objAjax.responseText);
+            
+            var resultado = JSON.parse(objAjax.responseText);
+            
+            console.log(resultado);
+
+            return resultado;
+        }
+    }
+
+    function errorAjax() {
+        console.log('error');
+
+        var error = objAjax.status;
+
+        return error;
+    }
+
+}
+
+function myGeoLocation(){
+
+	if (navigator.geolocation)
+	{
+		navigator.geolocation.getCurrentPosition(function(objPosition)
+		{
+			var lon = objPosition.coords.longitude;
+			var lat = objPosition.coords.latitude;
+
+			console.log(lat, lon)
+
+		}, function(objPositionError)
+		{
+			switch (objPositionError.code)
+			{
+				case objPositionError.PERMISSION_DENIED:
+					console.log("No se ha permitido el acceso a la posición del usuario.");
+				break;
+				case objPositionError.POSITION_UNAVAILABLE:
+					console.log("No se ha podido acceder a la información de su posición.");
+				break;
+				case objPositionError.TIMEOUT:
+					console.log("El servicio ha tardado demasiado tiempo en responder.");
+				break;
+				default:
+					console.log("Error desconocido.");
+			}
+		}, {
+            enableHighAccuracy: false,//Si el dispositivo y el usuario lo permiten el navegador intentará obtener la ubicación del usuario con una mayor precisión. Esto suele suponer un mayor coste de recursos.
+			maximumAge: 75000,//Antigüedad máxima en milisegundos. Con el valor por defecto (0), cada vez que se pide la posición se vuelve a calcular. Si ponemos algún valor mayor que cero, se busca en la caché y si hay una posición tomada anteriormente no más antigua que el valor dado, se devuelve inmediatamente, ahorrando muchos recursos. Con el valor Infinity siempre se devolverá un valor de la caché.
+			timeout: 15000//Tiempo de espera máximo para obtener la posición en milisegundos. Este tiempo empieza a contar desde que el usuario da su permiso, no antes.
+		});
+	}
+	else
+	{
+		console.log("Su navegador no soporta la API de geolocalización.");
+	}
 }

@@ -62,7 +62,7 @@
                     <li>
                         <article class="art-elementor">
                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
+                            <img src="contenido/muestra1@3x.jpg" srcset="contenido/muestra1.jpg 1x, contenido/muestra1@2x.jpg 2x, contenido/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
                            
                             <div class="wrapper-fav">
                                 <span class="number">326</span>
@@ -70,83 +70,7 @@
 
                         </article>
                     </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">3</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">326</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">3</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">326</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">3</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">26</span>
-                            </div>
-
-                        </article>
-                    </li>
-                    <li>
-                        <article class="art-elementor">
-                            
-                            <img src="assets/images/muestra1@3x.jpg" srcset="assets/images/muestra1.jpg 1x, assets/images/muestra1@2x.jpg 2x, assets/images/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">
-                            
-                            <div class="wrapper-fav">
-                                <span class="number">1003</span>
-                            </div>
-
-                        </article>
-                    </li>
+                    
                 </ul>
                 <ul class="pagination-art">
                     <li class="activo"></li>
@@ -246,26 +170,24 @@
 */
 
 //centro del mapa: latitud y longitud
-var centerMap = [-34.591444, -58.428068];
+
 
 /* 
 * MARKERS O SUCURSASLES
 * Array con los datos de las sucursales
 */
+/*var locations = [
+    {'id':1, 'titulo':'Ciudad de Buenos Aires', 'lat': -34.6078603, 'long' : -58.383111, 'ubicacion' : { 'slug' : 'caba', 'nombre' : 'Capital Federal' }, 'marker' : '', 'likes' : 326, 'data' : { 'titulo' : 'MARTE (Argentina)', 'imagen' : ['contenido/muestra1.jpg', 'contenido/muestra1@2x.jpg', 'contenido/muestra1@3x.jpg'], 'tag' : '@marte_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': ['contenido/movie.mp4' ], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - PALERMO', 'imagenes': ['contenido/antes.jpg', 'contenido/despues.jpg'] } },
 
-var locations = [
-    {'id':1, 'titulo':'Ciudad de Buenos Aires', 'lat': -34.6078603, 'long' : -58.383111, 'ubicacion' : { 'slug' : 'caba', 'nombre' : 'Capital Federal' }, 'marker' : '', 'likes' : 326, 'data' : { 'titulo' : 'MARTE (Argentina)', 'imagen' : ['assets/images/muestra1.jpg', 'assets/images/muestra1@2x.jpg', 'assets/images/muestra1@3x.jpg'], 'tag' : '@marte_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': ['assets/images/movie.mp4' ], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - PALERMO', 'imagenes': ['assets/images/antes.jpg', 'assets/images/despues.jpg'] } },
-
-    {'id':2, 'titulo':'La Plata', 'lat': -34.9205233, 'long' : -57.9881898, 'ubicacion' : { 'slug' : 'bsas', 'nombre' : 'Buenos Aires' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'SATURNO (Argentina)', 'imagen' : ['assets/images/imagen-destacada.png'], 'tag' : '@saturno_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': [], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - PALERMO', 'imagenes': [] } },
+    {'id':2, 'titulo':'La Plata', 'lat': -34.9205233, 'long' : -57.9881898, 'ubicacion' : { 'slug' : 'bsas', 'nombre' : 'Buenos Aires' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'SATURNO (Argentina)', 'imagen' : ['contenido/imagen-destacada.png'], 'tag' : '@saturno_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': [], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - PALERMO', 'imagenes': [] } },
     
-    {'id':3, 'titulo':'Rosario', 'lat': -32.9521898, 'long' : -60.7666797, 'ubicacion' : { 'slug' : 'stfe', 'nombre' : 'Santa Fé' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'JUPITER (Argentina)', 'imagen' : ['assets/images/imagen-destacada.png'], 'tag' : '@jupiter_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': [], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - MONUMENTO DE LA BANDERA', 'imagenes': ['assets/images/antes.jpg'] } },
+    {'id':3, 'titulo':'Rosario', 'lat': -32.9521898, 'long' : -60.7666797, 'ubicacion' : { 'slug' : 'stfe', 'nombre' : 'Santa Fé' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'JUPITER (Argentina)', 'imagen' : ['contenido/imagen-destacada.png'], 'tag' : '@jupiter_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': true, 'video': [], 'texto': 'Hola, Soy Marte! Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.', 'direccion' : 'Gorriti 5043 - MONUMENTO DE LA BANDERA', 'imagenes': ['contenido/antes.jpg'] } },
     
-    {'id':3, 'titulo' : 'Mar del Plata', 'lat': -38.0174836, 'long' : -57.7406185, 'ubicacion' : { 'slug' : 'bsas', 'nombre' : 'Buenos Aires' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'VENUS (Argentina)', 'imagen' : ['assets/images/imagen-destacada.png'], 'tag' : '@venus_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': false, 'video': [], 'texto': '', 'direccion' : '', 'imagenes': [] } },
-];
+    {'id':3, 'titulo' : 'Mar del Plata', 'lat': -38.0174836, 'long' : -57.7406185, 'ubicacion' : { 'slug' : 'bsas', 'nombre' : 'Buenos Aires' }, 'marker' : '', 'likes' : 0, 'data' : { 'titulo' : 'VENUS (Argentina)', 'imagen' : ['contenido/imagen-destacada.png'], 'tag' : '@venus_', 'excerpt' : 'In efforts to expand our horizons, we welcome every investment-minded individual to join us.', 'popup': false, 'video': [], 'texto': '', 'direccion' : '', 'imagenes': [] } },
+];*/
 
 </script>
 <!--- scripts -->
-    <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHvO2i0BzlyPDyFQ3Jdkv4i9pmSNNYMMg&callback=initMap"></script>-->
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHvO2i0BzlyPDyFQ3Jdkv4i9pmSNNYMMg"></script>
     <script src="assets/js/before-after.min.js"></script>
     <script src="assets/js/script.js"></script>
