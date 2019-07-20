@@ -14,6 +14,13 @@ if ( $function == '') {
 switch ($function) {
     //de acuerdo a la $funcion pasada ejecuta y busca la funcion q corresponda devolviendo siempre un json y listo para usar
 
+    case 'load-ubicaciones':
+
+        $respuesta = getUbicacionesData();
+
+        echo json_encode($respuesta);
+    break;
+
     case 'load-locations-ubicacion':
 
         $ubicacion = isset( $_POST['ubicacion'] ) ? $_POST['ubicacion'] : null;
@@ -30,6 +37,7 @@ switch ($function) {
         $orden = 'fecha DESC';
 
         $locations = getLocations ( $limit, null, $orden );
+        $locations['pagina'] = $numeroPagina;
 
         echo json_encode($locations);
 

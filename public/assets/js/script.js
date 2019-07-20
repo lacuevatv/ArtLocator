@@ -2,27 +2,160 @@
  * File script.js
  *
 */
+//VARIABLES DEFAULT
 var baseurl = window.location.href;
 var ajaxFile = window.location.href + 'inc/backend_api.php';
 var centerMapDefault = [-34.591444, -58.428068];
 var numeroPagina = 0;
-/*document.addEventListener('DOMContentLoaded', function() {
+var videoLoad = false;
+
+document.addEventListener('DOMContentLoaded', function() {
     
     console.log('ready');
-    
-});*/
+
+    /*
+     * PLAY VIDEO
+     */
+    document.querySelector('#play').addEventListener('click', playVideo);
+
+    if (window.innerWidth > 960) {
+        playVideo();
+    }
+
+    /*
+     * prepara el boton de buscar por ubicacion
+     */
+    document.querySelector('#zona-form').addEventListener('submit', function(e){
+        e.preventDefault();
+        console.log('buscar por ubicacion');
+    });
+
+    /*
+     * prepara el boton de buscar por mi ubicacion
+     */
+    document.querySelector('#myLocationBtn').addEventListener('click', function(e){
+        console.log('buscar por mi ubicación');
+    });
+
+    /*
+    * arma las ubicaciones del select
+    */
+    getSelectUbicaciones();
+
+});
 
 window.addEventListener('load', function() {
+    console.log('load');
+
+
+    /*
+     * busca los ultimos kioskos y paginacion
+     */
     
-    //console.log('load');
     //inicia el mapa
     //initArtLocator();
 
 });
 
+
+
+
 /*
  * FUNCIONES
 */
+
+//sirve para poner el video o para precargarlo en el movil
+function playVideo() {
+
+    if (videoLoad ) {
+
+        var video = document.getElementById("videolocator");
+        if ( video.paused ) {
+            video.play();
+        } else {
+            video.pause();
+        }
+        
+    } else {
+        //se carga el video
+
+        var html = '';
+        var videoWrapper = document.querySelector('#video-wrapper');
+        var imagenHeader = document.querySelector('#imagen-header');
+        var pantallaWidth = window.innerWidth;
+
+        var nombreVideo = 'movie.mp4';
+
+        html += '<video id="videolocator" height="100%" muted autoplay>';
+            html += '<source src="'+ baseurl + '/contenido/' + nombreVideo;
+            html += '" type="video/mp4';//ogg o webm
+            html += '">'
+            html += '<img src="">';//por si no soporta elemento video
+        html += '</video>';
+
+        videoWrapper.innerHTML = html;
+
+        var video = document.getElementById("videolocator");
+
+        video.onloadeddata = function() {
+            imagenHeader.style.opacity = 0;
+        };
+
+        //coloco la variable como true asi no hay que cargarlo de nuevo
+        videoLoad = true;
+    }
+}
+
+
+function getSelectUbicaciones() {
+    var select = document.querySelectorAll('select[name="zona-provincia"]')[0];
+    var html = '<option>Seleccionar ubicación</option>';
+
+    var objAjax;
+
+    var parametros = 'function=load-ubicaciones';
+    
+    objAjax = new XMLHttpRequest();
+    objAjax.addEventListener('load', cargarOptionsInSelects);
+    objAjax.addEventListener('error', errorAjaxSelect);
+
+    objAjax.open('POST', ajaxFile);
+
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    objAjax.send(parametros);
+
+    function cargarOptionsInSelects() {
+
+        if (objAjax.status != 200) {
+            errorAjax();
+        } else {
+            var resultado = JSON.parse(objAjax.responseText);
+            console.log(resultado)
+            
+            for (var index = 0; index < resultado.length; index++) {
+                console.log(resultado[index].nombre)
+                html += '<option value="'+resultado[index].id+'">'+resultado[index].titulo+'</option>';
+                
+            }
+
+            select.innerHTML = html;
+
+        }
+    }
+
+    function errorAjaxSelect() {
+
+        var error = objAjax.status;
+
+        console.log(error);
+    }
+
+}
+
+
+
 function openMore (id) {
     //wrapper
     var wrapper = document.querySelector('.more-content-wrapper');

@@ -216,6 +216,46 @@ html, body {
   }
 }
 
+.loader {
+  margin: 0 auto;
+  display: flex;
+  display: -o-flex;
+  display: -ms-flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 200px;
+  height: 200px;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -ms-transition: all 500ms;
+  transition: all 500ms;
+}
+@media (min-width: 768px) {
+  .loader {
+    width: 500px;
+  }
+}
+.loader img {
+  width: 31px !important;
+  height: 31px !important;
+}
+
+.loader.off {
+  height: 0;
+  width: 0;
+}
+
 .footer-blanco {
   background-color: #fff;
   padding: 2em 0;
@@ -298,12 +338,16 @@ html, body {
 .main-header .background-header img {
   display: block;
   position: absolute;
-  z-index: 1;
+  z-index: 11;
   left: 50%;
   -webkit-transform: translateX(-50%);
   -moz-transform: translateX(-50%);
   -ms-transform: translateX(-50%);
   transform: translateX(-50%);
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -ms-transition: all 500ms;
+  transition: all 500ms;
   height: 100%;
   width: auto;
 }
@@ -322,6 +366,23 @@ html, body {
 .main-header .background-header .video-header {
   position: absolute;
   z-index: 11;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  display: -o-flex;
+  display: -ms-flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
 }
 .main-header .background-header .degradado {
   position: absolute;

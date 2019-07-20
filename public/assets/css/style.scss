@@ -48,6 +48,41 @@ html, body {
     }
 }
 
+.loader {
+    margin: 0 auto;
+    display: flex;
+    display: -o-flex;
+    display: -ms-flex;
+    display: -moz-flex;
+    display: -webkit-flex;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    -moz-justify-content: center;
+    -ms-justify-content: center;
+    -o-justify-content: center;
+    justify-content: center;
+    overflow: hidden;
+    width: 200px;
+    height: 200px;
+    @include transition(all $transitionSpeed);
+    @media (min-width: $sm) {
+        width: 500px;
+    }
+    img {
+        width: 31px!important;
+        height: 31px!important;
+    }
+}
+
+.loader.off {
+    height: 0;
+    width: 0;
+}
+
 .footer-blanco {
     background-color: $color-blanco;
     padding: 2em 0;
@@ -121,9 +156,10 @@ html, body {
         img {
             display: block;
             position: absolute;
-            z-index: 1;
+            z-index: 11;
             left: 50%;
             @include transform(translateX(-50%));
+            @include transition(all $transitionSpeed);
             height: 100%;
             width: auto;
 
@@ -140,6 +176,23 @@ html, body {
         .video-header {
             position: absolute;
             z-index: 11;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            display: -o-flex;
+            display: -ms-flex;
+            display: -moz-flex;
+            display: -webkit-flex;
+            -webkit-align-items: center;
+            -moz-align-items: center;
+            -ms-align-items: center;
+            -o-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            -moz-justify-content: center;
+            -ms-justify-content: center;
+            -o-justify-content: center;
+            justify-content: center;
         }
 
         .degradado{

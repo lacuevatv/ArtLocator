@@ -184,7 +184,7 @@ function updateFromTabla( $tabla, $set, $where ) {
 }
 
 //trae todas las ubicaciones
-function getUbicacionesData($id) {
+function getUbicacionesData() {
     $tabla = 'ubicaciones';
 
     $ubicaciones = getPostsFromTabla( $tabla);

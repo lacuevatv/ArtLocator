@@ -4,13 +4,15 @@ require_once('functions.php');
 
 echo serialize($var);
 */
-$cantidadporpagina = 1;
 $numeroPagina = 0;
-//$limit = $numeroPagina.','.$cantidadporpagina;
+$cantidadporpagina = POSTPERPAG;
+$limit = ( ($numeroPagina )*$cantidadporpagina).", ".$cantidadporpagina;
 $orden = 'fecha DESC';
-$kioskos = getLocations ( null, null, $orden );
 
-var_dump($kioskos);
+$locations = getLocations ( $limit, null, $orden );
+$locations['pagina'] = $numeroPagina;
+
+var_dump($locations);
 
 /*$kiosko = getLocation(4);
 var_dump($kiosko);*/
