@@ -177,7 +177,6 @@ function getLastLocations(page) {
     } else {
     //si no esta guardado, buscamos la info en el servidor por ajax
 
-
         //colocamos el loader
         loader.classList.remove('off');
         //limpiamos el contenedor
@@ -213,7 +212,7 @@ function getLastLocations(page) {
                         //se cargan las paginas
                         setPages(resultado.pagina);
                         //guardamos la info en el navegador para que no haya que cargarla de nuevo
-                        sessionStorage.setItem('page-'+page, JSON.stringify(resultado.data));
+                        sessionStorage.setItem('pages_'+page, JSON.stringify(resultado.data));
                     } 
                 }
             }
@@ -278,7 +277,7 @@ function htmlLocationsThumbnails(locations) {
 
         var li = document.createElement('li');
         
-        html +=    '<article data-id="'+location.id+'" class="art-elementor animate-fade-in">';
+        html +=    '<article data-id="'+location.id+'" class="art-elementor animate-fade-in" onclick="openMore(this)">';
             //imagen vacia
             if ( location.data.imagen.length == 0 || ( location.data.imagen.length == 1 && location.data.imagen.length == ' ') ) {
                 html += '<img src="contenido/muestra1@3x.jpg" srcset="contenido/muestra1.jpg 1x, contenido/muestra1@2x.jpg 2x, contenido/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">';
@@ -296,7 +295,7 @@ function htmlLocationsThumbnails(locations) {
                 html +=  '" alt="'+location.data.titulo+'" class="imagen">';
             }
                 
-        html +=        '<div class="wrapper-fav" data-id="'+location.id+'">';
+        html +=        '<div class="wrapper-fav" data-id="'+location.id+'" onclick="oneMoreLike(this)">';
         html +=            '<span class="number">'+location.likes+'</span>';
         html +=        '</div>';
 
@@ -310,7 +309,93 @@ function htmlLocationsThumbnails(locations) {
     
 }
 
-function openMore (id) {
+//suma likes al location
+function oneMoreLike (e, id) {
+    event.stopImmediatePropagation();
+    
+    if (id == undefined) {
+        id = e.getAttribute('data-id');
+    }
+
+    var objAjax;
+
+    var parametros = 'function=me_gusta';
+    parametros+= '&id='+id;
+    
+    objAjax = new XMLHttpRequest();
+    objAjax.addEventListener('error', errorAjax);
+    objAjax.addEventListener('load', function(){
+        if (objAjax.status != 200) {
+            errorAjax();
+        } else {
+            //console.log(objAjax.responseText)
+            var resultado = JSON.parse(objAjax.responseText);
+            
+            if ( resultado.respuesta.status != 'ok' ) {
+
+                console.log(resultado.respuesta.error);
+
+            } else {
+                
+                //muestra que se sumo un numero a los likes
+                e.children[0].textContent = parseInt(e.children[0].textContent)+1;
+
+                updateFilesSaved(id);
+                
+            }
+        }
+    });
+
+    objAjax.open('POST', ajaxFile);
+
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    objAjax.send(parametros);
+
+}
+
+
+//esta funcion busca la location por id en la sesion store y actualiza sus datos, solo tiene que actualizar que se agregó un like
+function updateFilesSaved(id) {
+    
+    if (! sessionStorage) {
+        return true;
+    }
+
+    if ( sessionStorage.length > 0 ) {
+        for (var key in sessionStorage) {
+            if (sessionStorage.hasOwnProperty(key)) {
+
+                var element = JSON.parse(sessionStorage[key]);
+                //si la key tiene pages, es un paginado
+                if ( key.indexOf('pages') != -1 ) {
+                    //recorre los objetos a ver si encuentra
+                    for (var j = 0; j < element.length; j++) {
+                        if (element[j].id == id ) {
+                            element[j].likes = parseInt(element[j].likes)+1;
+                        }
+                    }
+                } else if ( key.indexOf('location') != -1 ) {
+                    //si la key tiene location es un post simple
+
+                    if (element.id == id ) {
+                        element.likes = parseInt(element.likes)+1;
+                    }
+                }
+            
+            }
+        }
+    }
+    
+}
+
+//abre el popup de las locations
+function openMore (e, id) {
+    if (id == undefined) {
+        id = e.getAttribute('data-id');
+    }
+    
     //wrapper
     var wrapper = document.querySelector('.more-content-wrapper');
     var contenedor = document.querySelector('.more-content-inner ');

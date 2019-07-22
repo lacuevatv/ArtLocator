@@ -11,7 +11,7 @@ if ( $function == '') {
     return 'error';
 }
 
-sleep(2);
+sleep(1);
 
 switch ($function) {
     //de acuerdo a la $funcion pasada ejecuta y busca la funcion q corresponda devolviendo siempre un json y listo para usar
@@ -53,7 +53,7 @@ switch ($function) {
         $id = isset( $_POST['id'] ) ? $_POST['id'] : null;
 
         if ($id != null || $id != '' ) {
-            $respuesta = getLocationsByUbicacion($condition);    
+            $respuesta = addLike($id);    
         }
 
         echo json_encode($respuesta);

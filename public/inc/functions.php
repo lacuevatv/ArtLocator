@@ -302,9 +302,9 @@ function addLike($id) {
     $update = updateFromTabla( $tabla, $set, $where );
 
     if ($update == 'updated') {
-        $datos['status'] = 'ok';
+        $datos['respuesta']['status'] = 'ok';
     } else {
-        $datos['error'] = $update;
+        $datos['respuesta']['error'] = $update;
     }
 
     return $datos;
