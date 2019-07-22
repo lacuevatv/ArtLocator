@@ -7,8 +7,9 @@ var baseurl = window.location.href;
 var ajaxFile = window.location.href + 'inc/backend_api.php';
 var contenidoUrl = baseurl + 'contenido/';
 var centerMapDefault = [-34.591444, -58.428068];
-var numeroPagina = 1;
 var videoLoad = false;
+var numeroPagina;
+console.log(numeroPagina);
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('ready');
@@ -46,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 window.addEventListener('load', function() {
     console.log('load');
-
+    
 
     /*
      * busca los ultimos kioskos y paginacion
@@ -154,14 +155,14 @@ function getSelectUbicaciones() {
 }
 
 //busca las ultimas locaciones y las va paginando
-function getLastLocations(numeroPagina) {
-    
+function getLastLocations(page) {
+    numeroPagina = page;
     var loader = document.querySelector('#loader-arts');
-
+    
     var objAjax;
 
     var parametros = 'function=load-locations-by-last-date-paginated';
-    parametros+= '&pagina='+numeroPagina;
+    parametros+= '&pagina='+page;
     
     objAjax = new XMLHttpRequest();
     objAjax.addEventListener('error', errorAjax);
@@ -177,8 +178,6 @@ function getLastLocations(numeroPagina) {
                 console.log(resultado.respuesta.error);
 
             } else {
-                //aumentamos numerod e pagina
-                numeroPagina++;
                 
                 //si esta quitamos el loader
                 loader.classList.add('off');
@@ -187,9 +186,10 @@ function getLastLocations(numeroPagina) {
                 if (resultado.data.length > 0) {
                     
                     htmlLocationsThumbnails(resultado.data);
+
+                    setPages(resultado.pagina);
                 } 
             }
-            console.log(numeroPagina)
         }
     });
 
@@ -202,9 +202,50 @@ function getLastLocations(numeroPagina) {
 
 }
 
+function setPages(paginas) {
+    var contenedorPages = document.querySelector('#contenedor-paginas');
+    
+    //si ya están las paginas se omite
+    if ( contenedorPages.childElementCount > 0){
+        
+        return false;
+
+    } else {
+
+        //de lo contrario se arman las paginas
+
+        for (var i = 0; i < paginas.totales; i++) {
+            
+            var li = document.createElement('li');
+            li.setAttribute('data-page', i);
+            if ( i == 0 ) {
+                li.classList.add('activo');
+            }
+            
+            li.addEventListener('click', function(){
+                
+                getLastLocations(this.getAttribute('data-page'));
+
+                var liPages = document.querySelectorAll('#contenedor-paginas li');
+                
+                for (var j = 0; j < liPages.length; j++) {
+                    liPages[j].classList.remove('activo');
+                }
+        
+                //le agrego la clase activo
+                this.classList.add('activo');
+                
+            });
+
+            contenedorPages.appendChild(li);
+        }
+    }
+}
+
 function htmlLocationsThumbnails(locations) {
     var contenedorLocations = document.querySelector('#contenedor-artes');
-    
+    contenedorLocations.innerHTML = '';
+
     for (var i = 0; i < locations.length; i++) {
         var location = locations[i];
         var html = '';

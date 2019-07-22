@@ -255,7 +255,7 @@ function getTotalPages() {
     
     $pages = getPostsFromTabla( 'kioskos' );
 
-    return count($pages);
+    return count($pages) / POSTPERPAG;
 }
 
 //recupera una sola locación para mostrar de a una

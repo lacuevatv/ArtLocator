@@ -716,6 +716,7 @@ html, body {
   padding: 2rem 0 1rem;
 }
 .art-section .pagination-art li {
+  cursor: pointer;
   -webkit-transition: all 500ms;
   -moz-transition: all 500ms;
   -ms-transition: all 500ms;

@@ -494,6 +494,7 @@ html, body {
         padding: 2rem 0 1rem;
 
         li {
+            cursor: pointer;
             @include transition(all $transitionSpeed);
             height: 4px;
             width: 41px;
