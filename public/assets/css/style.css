@@ -216,6 +216,26 @@ html, body {
   }
 }
 
+.loader-wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  display: -o-flex;
+  display: -ms-flex;
+  display: -moz-flex;
+  display: -webkit-flex;
+  -webkit-align-items: center;
+  -moz-align-items: center;
+  -ms-align-items: center;
+  -o-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  -moz-justify-content: center;
+  -ms-justify-content: center;
+  -o-justify-content: center;
+  justify-content: center;
+}
+
 .loader {
   margin: 0 auto;
   display: flex;
@@ -713,6 +733,7 @@ html, body {
 }
 
 .art-elementor {
+  opacity: 0;
   cursor: pointer;
   -webkit-transition: all 500ms;
   -moz-transition: all 500ms;
@@ -800,6 +821,37 @@ html, body {
   background-size: 14px 14px;
 }
 
+.animate-fade-in {
+  opacity: 0;
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.animate-fade-out {
+  opacity: 1;
+  animation-name: fade-in;
+  animation-duration: 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .map-section {
   background-color: #fff;
 }

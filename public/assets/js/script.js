@@ -5,12 +5,12 @@
 //VARIABLES DEFAULT
 var baseurl = window.location.href;
 var ajaxFile = window.location.href + 'inc/backend_api.php';
+var contenidoUrl = baseurl + 'contenido/';
 var centerMapDefault = [-34.591444, -58.428068];
-var numeroPagina = 0;
+var numeroPagina = 1;
 var videoLoad = false;
 
 document.addEventListener('DOMContentLoaded', function() {
-    
     console.log('ready');
 
     /*
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#play').addEventListener('click', playVideo);
 
     if (window.innerWidth > 960) {
-        playVideo();
+        //playVideo();
     }
 
     /*
@@ -51,7 +51,8 @@ window.addEventListener('load', function() {
     /*
      * busca los ultimos kioskos y paginacion
      */
-    
+    //llama a las ultimas locacitions, pagina 0
+    getLastLocations(0);
     //inicia el mapa
     //initArtLocator();
 
@@ -64,7 +65,7 @@ window.addEventListener('load', function() {
  * FUNCIONES
 */
 
-//sirve para poner el video o para precargarlo en el movil
+//sirve para poner el video del header o para precargarlo en el movil
 function playVideo() {
 
     if (videoLoad ) {
@@ -107,6 +108,14 @@ function playVideo() {
 }
 
 
+//funcion estandar que arroja error si falla el ajax
+function errorAjax() {
+
+    var error = objAjax.status;
+
+    console.log(error);
+}
+
 function getSelectUbicaciones() {
     var select = document.querySelectorAll('select[name="zona-provincia"]')[0];
     var html = '<option>Seleccionar ubicación</option>';
@@ -116,8 +125,24 @@ function getSelectUbicaciones() {
     var parametros = 'function=load-ubicaciones';
     
     objAjax = new XMLHttpRequest();
-    objAjax.addEventListener('load', cargarOptionsInSelects);
-    objAjax.addEventListener('error', errorAjaxSelect);
+    objAjax.addEventListener('error', errorAjax);
+    objAjax.addEventListener('load', function () {
+        if (objAjax.status != 200) {
+            errorAjax();
+        } else {
+            var resultado = JSON.parse(objAjax.responseText);
+            //console.log(resultado)
+            
+            for (var index = 0; index < resultado.length; index++) {
+                //console.log(resultado[index].nombre)
+                html += '<option value="'+resultado[index].id+'">'+resultado[index].titulo+'</option>';
+                
+            }
+
+            select.innerHTML = html;
+
+        }
+    });
 
     objAjax.open('POST', ajaxFile);
 
@@ -126,35 +151,97 @@ function getSelectUbicaciones() {
 
     objAjax.send(parametros);
 
-    function cargarOptionsInSelects() {
+}
 
+//busca las ultimas locaciones y las va paginando
+function getLastLocations(numeroPagina) {
+    console.log(numeroPagina);
+    var loader = document.querySelector('#loader-arts');
+
+    var objAjax;
+
+    var parametros = 'function=load-locations-by-last-date-paginated';
+    parametros+= '&pagina='+numeroPagina;
+    
+    objAjax = new XMLHttpRequest();
+    objAjax.addEventListener('error', errorAjax);
+    objAjax.addEventListener('load', function(){
         if (objAjax.status != 200) {
             errorAjax();
         } else {
             var resultado = JSON.parse(objAjax.responseText);
-            console.log(resultado)
+            //console.log(resultado)
             
-            for (var index = 0; index < resultado.length; index++) {
-                console.log(resultado[index].nombre)
-                html += '<option value="'+resultado[index].id+'">'+resultado[index].titulo+'</option>';
+            if ( resultado.respuesta.status != 'ok' ) {
+
+                console.log(resultado.respuesta.error);
+
+            } else {
+                //aumentamos numerod e pagina
+                numeroPagina++;
                 
+                //si esta quitamos el loader
+                loader.classList.add('off');
+
+                //chequeamos data y cargamos a continuacion
+                if (resultado.data.length > 0) {
+                    
+                    htmlLocationsThumbnails(resultado.data);
+                } 
             }
-
-            select.innerHTML = html;
-
+            console.log(numeroPagina)
         }
-    }
+    });
 
-    function errorAjaxSelect() {
+    objAjax.open('POST', ajaxFile);
 
-        var error = objAjax.status;
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        console.log(error);
-    }
+    objAjax.send(parametros);
 
 }
 
+function htmlLocationsThumbnails(locations) {
+    var contenedorLocations = document.querySelector('#contenedor-artes');
+    
+    for (var i = 0; i < locations.length; i++) {
+        var location = locations[i];
+        var html = '';
 
+        var li = document.createElement('li');
+        
+        html +=    '<article data-id="'+location.id+'" class="art-elementor animate-fade-in">';
+            //imagen vacia
+            if ( location.data.imagen.length == 0 || ( location.data.imagen.length == 1 && location.data.imagen.length == ' ') ) {
+                html += '<img src="contenido/muestra1@3x.jpg" srcset="contenido/muestra1.jpg 1x, contenido/muestra1@2x.jpg 2x, contenido/muestra1@3x.jpg 3x" alt="Art Locator Chesterfield" class="imagen">';
+
+            } else if ( location.data.imagen.length < 1 ) {
+                //imagen unica
+                html +=  '<img src="'+contenidoUrl + location.data.imagen[0] +'" alt="'+location.data.titulo+'" class="imagen">';
+            } else {
+                //muchas imagenes
+                html +=  '<img src="'+contenidoUrl + location.data.imagen[0] +'" srcset="';
+                for (var j = 0; j < location.data.imagen.length; j++) {
+                    image = location.data.imagen[j];
+                    html += contenidoUrl + location.data.imagen[j] + ' ' + parseInt(j+1) + 'x, ';
+                }
+                html +=  '" alt="'+location.data.titulo+'" class="imagen">';
+            }
+                
+        html +=        '<div class="wrapper-fav" data-id="'+location.id+'">';
+        html +=            '<span class="number">'+location.likes+'</span>';
+        html +=        '</div>';
+
+        html +=    '</article>'
+        
+        li.innerHTML = html;
+
+        contenedorLocations.appendChild(li);
+
+    }
+    
+}
 
 function openMore (id) {
     //wrapper
