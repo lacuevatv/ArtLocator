@@ -155,7 +155,7 @@ function getSelectUbicaciones() {
 
 //busca las ultimas locaciones y las va paginando
 function getLastLocations(numeroPagina) {
-    console.log(numeroPagina);
+    
     var loader = document.querySelector('#loader-arts');
 
     var objAjax;
@@ -169,9 +169,9 @@ function getLastLocations(numeroPagina) {
         if (objAjax.status != 200) {
             errorAjax();
         } else {
+            //console.log(objAjax.responseText)
             var resultado = JSON.parse(objAjax.responseText);
-            //console.log(resultado)
-            
+            console.log(resultado)
             if ( resultado.respuesta.status != 'ok' ) {
 
                 console.log(resultado.respuesta.error);

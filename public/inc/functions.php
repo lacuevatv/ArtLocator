@@ -251,6 +251,13 @@ function getLocations ( $limit = null, $ubicacion = null, $orden = null  ) {
     return $datos;
 }
 
+function getTotalPages() {
+    
+    $pages = getPostsFromTabla( 'kioskos' );
+
+    return count($pages);
+}
+
 //recupera una sola locación para mostrar de a una
 function getLocation($id) {
     //prepara la respuesta

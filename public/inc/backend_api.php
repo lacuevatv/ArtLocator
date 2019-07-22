@@ -30,14 +30,17 @@ switch ($function) {
     break;
 
     case 'load-locations-by-last-date-paginated' :
-
+    
         $numeroPagina = isset( $_POST['pagina'] ) ? $_POST['pagina'] : 1;
         $cantidadporpagina = POSTPERPAG;
         $limit = ( ($numeroPagina )*$cantidadporpagina).", ".$cantidadporpagina;
         $orden = 'fecha DESC';
 
         $locations = getLocations ( $limit, null, $orden );
-        $locations['pagina'] = $numeroPagina;
+        $locations['pagina'] = array(
+            'actual' => (int) $numeroPagina,
+            'totales' => getTotalPages(),
+        );
 
         echo json_encode($locations);
 
