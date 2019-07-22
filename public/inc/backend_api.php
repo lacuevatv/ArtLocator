@@ -11,6 +11,8 @@ if ( $function == '') {
     return 'error';
 }
 
+sleep(2);
+
 switch ($function) {
     //de acuerdo a la $funcion pasada ejecuta y busca la funcion q corresponda devolviendo siempre un json y listo para usar
 

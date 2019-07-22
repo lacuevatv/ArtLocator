@@ -13,6 +13,12 @@ console.log(numeroPagina);
 
 document.addEventListener('DOMContentLoaded', function() {
     console.log('ready');
+    /*
+     * PRIMERO SE BORRA LA SESION PARA QUE CARGUE TODO DE NUEVO
+    */
+    if (sessionStorage) {
+        sessionStorage.clear();
+    }
 
     /*
      * PLAY VIDEO
@@ -159,47 +165,67 @@ function getLastLocations(page) {
     numeroPagina = page;
     var loader = document.querySelector('#loader-arts');
     
-    var objAjax;
+    //primero vemos si esta guardado
+    if ( sessionStorage && sessionStorage.getItem('page-'+page) ) {
+        
+        //si esta guardado lo insertamos desde aca
+        htmlLocationsThumbnails( JSON.parse( sessionStorage.getItem('page-'+page) ) );
 
-    var parametros = 'function=load-locations-by-last-date-paginated';
-    parametros+= '&pagina='+page;
-    
-    objAjax = new XMLHttpRequest();
-    objAjax.addEventListener('error', errorAjax);
-    objAjax.addEventListener('load', function(){
-        if (objAjax.status != 200) {
-            errorAjax();
-        } else {
-            //console.log(objAjax.responseText)
-            var resultado = JSON.parse(objAjax.responseText);
-            console.log(resultado)
-            if ( resultado.respuesta.status != 'ok' ) {
+        //si esta quitamos el loader
+        loader.classList.add('off');
 
-                console.log(resultado.respuesta.error);
+    } else {
+    //si no esta guardado, buscamos la info en el servidor por ajax
 
+
+        //colocamos el loader
+        loader.classList.remove('off');
+        //limpiamos el contenedor
+        document.querySelector('#contenedor-artes').innerHTML = '';
+        
+        var objAjax;
+
+        var parametros = 'function=load-locations-by-last-date-paginated';
+        parametros+= '&pagina='+page;
+        
+        objAjax = new XMLHttpRequest();
+        objAjax.addEventListener('error', errorAjax);
+        objAjax.addEventListener('load', function(){
+            if (objAjax.status != 200) {
+                errorAjax();
             } else {
-                
-                //si esta quitamos el loader
-                loader.classList.add('off');
+                //console.log(objAjax.responseText)
+                var resultado = JSON.parse(objAjax.responseText);
+                console.log(resultado)
+                if ( resultado.respuesta.status != 'ok' ) {
 
-                //chequeamos data y cargamos a continuacion
-                if (resultado.data.length > 0) {
+                    console.log(resultado.respuesta.error);
+
+                } else {
                     
-                    htmlLocationsThumbnails(resultado.data);
+                    //si esta quitamos el loader
+                    loader.classList.add('off');
 
-                    setPages(resultado.pagina);
-                } 
+                    //chequeamos data y cargamos a continuacion
+                    if (resultado.data.length > 0) {
+                        
+                        htmlLocationsThumbnails(resultado.data);
+                        //se cargan las paginas
+                        setPages(resultado.pagina);
+                        //guardamos la info en el navegador para que no haya que cargarla de nuevo
+                        sessionStorage.setItem('page-'+page, JSON.stringify(resultado.data));
+                    } 
+                }
             }
-        }
-    });
+        });
 
-    objAjax.open('POST', ajaxFile);
+        objAjax.open('POST', ajaxFile);
 
-    //Send the proper header information along with the request
-    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        //Send the proper header information along with the request
+        objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-    objAjax.send(parametros);
-
+        objAjax.send(parametros);
+    }
 }
 
 function setPages(paginas) {
