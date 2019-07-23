@@ -9,7 +9,6 @@ var contenidoUrl = baseurl + 'contenido/';
 var centerMapDefault = [-34.591444, -58.428068];
 var videoLoad = false;
 var numeroPagina;
-console.log(numeroPagina);
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -34,7 +33,8 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     document.querySelector('#zona-form').addEventListener('submit', function(e){
         e.preventDefault();
-        
+        document.querySelector('#close-btn').click();
+
         var prov = document.querySelector('#zona-provincia').value;
 
         if (prov == undefined){
@@ -48,7 +48,10 @@ document.addEventListener('DOMContentLoaded', function() {
      * prepara el boton de buscar por mi ubicacion
      */
     document.querySelector('#myLocationBtn').addEventListener('click', function(e){
-        console.log('buscar por mi ubicación');
+        //cierra el popup si esta abierto
+        document.querySelector('#close-btn').click();
+
+        myGeoLocation();
     });
 
     /*
@@ -57,6 +60,7 @@ document.addEventListener('DOMContentLoaded', function() {
     getSelectUbicaciones();
 
 });
+
 
 window.addEventListener('load', function() {
 
@@ -416,8 +420,12 @@ function openMore (e, id) {
     wrapper.style.display = 'block'
     
     //va hacia el contenedor y lo ubica en la ventana
-    window.scrollTo(0, getOffset(wrapper).top);
+    if (window.innerWidth > 960 ) {
+        var _top = document.querySelector('.map-section').scrollHeight + document.querySelector('.map-section').offsetTop;
+        window.scrollTo(0, _top);
+    _top
 
+    
     //asigna el tamaño al contenedor interno para que haga la animacion
     setTimeout( function(){
         contenedor.style.width = wrapper.getBoundingClientRect().width + 'px';
@@ -883,7 +891,7 @@ function getLocationsByUbicacion( ubicacion ) {
             if ( resultado.respuesta.status != 'ok' ) {
                 console.log(resultado.respuesta.error);
             } else {
-                console.log(resultado);
+                //console.log(resultado);
                 initArtLocator(centerMapDefault[0], centerMapDefault[1], resultado.data);
             }
 
@@ -956,16 +964,20 @@ function myGeoLocation(){
 			switch (objPositionError.code)
 			{
 				case objPositionError.PERMISSION_DENIED:
-					console.log("No se ha permitido el acceso a la posición del usuario.");
+                    console.log("No se ha permitido el acceso a la posición del usuario.");
+                    sendMsjNavigation('No se ha permitido el acceso a la posición del usuario.');
 				break;
 				case objPositionError.POSITION_UNAVAILABLE:
-					console.log("No se ha podido acceder a la información de su posición.");
+                    console.log("No se ha podido acceder a la información de su posición.");
+                    sendMsjNavigation('No se ha podido acceder a la información de su posición.');
 				break;
 				case objPositionError.TIMEOUT:
-					console.log("El servicio ha tardado demasiado tiempo en responder.");
+                    console.log("El servicio ha tardado demasiado tiempo en responder.");
+                    sendMsjNavigation('El servicio no responde');
 				break;
 				default:
-					console.log("Error desconocido.");
+                    console.log("Error desconocido.");
+                    sendMsjNavigation('Geolocalización no permitida');
 			}
 		}, {
             enableHighAccuracy: false,//Si el dispositivo y el usuario lo permiten el navegador intentará obtener la ubicación del usuario con una mayor precisión. Esto suele suponer un mayor coste de recursos.
@@ -975,8 +987,14 @@ function myGeoLocation(){
 	}
 	else
 	{
-		console.log("Su navegador no soporta la API de geolocalización.");
+        console.log('Su navegador no soporta la API de geolocalización.');
+        sendMsjNavigation('Geolocalización no permitida');
 	}
+}
+
+function sendMsjNavigation(msj) {
+    var btn = document.querySelector('#myLocationBtn');
+        btn.parentElement.innerHTML = '<p style="font-size:10px;">'+msj+'</p>';
 }
 
 
