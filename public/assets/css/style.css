@@ -497,20 +497,20 @@ html, body {
 .main-header .header-content h1 {
   font-family: "CAGeheimagent", "Roboto", sans-serif;
   text-transform: uppercase;
-  font-size: 80px;
-  line-height: 60px;
+  font-size: 70px;
+  line-height: 50px;
   font-weight: 700;
 }
 @media (min-width: 414px) {
   .main-header .header-content h1 {
-    font-size: 105px;
-    line-height: 75px;
+    font-size: 95px;
+    line-height: 70px;
   }
 }
 @media (min-width: 565px) {
   .main-header .header-content h1 {
-    font-size: 80px;
-    line-height: 60px;
+    font-size: 70px;
+    line-height: 50px;
   }
 }
 @media (min-width: 768px) {
@@ -944,8 +944,8 @@ html, body {
 .content-wrapper .content h2 {
   position: relative;
   text-transform: uppercase;
-  font-size: 90px;
-  line-height: 64px;
+  font-size: 65px;
+  line-height: 65px;
   font-family: "CAGeheimagent", "Roboto", sans-serif;
   font-weight: 700;
   margin-bottom: 10px;
@@ -961,11 +961,14 @@ html, body {
   top: -75px;
   left: 0;
 }
+.content-wrapper .content h2 .especial {
+  color: #ff2638;
+}
 .content-wrapper .content p {
   font-size: 14px;
 }
 .content-wrapper .content .button-wrapper {
-  margin: 1em 0 2em;
+  margin: 2em 0;
   width: 236px;
 }
 .content-wrapper .content .button-wrapper .btn-location {
@@ -1425,6 +1428,19 @@ html, body {
   color: #fff;
   bottom: 2em;
   left: 36px;
+}
+.art-popup-wrapper .video-wrapper .title-wrapper::before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 37px;
+  top: -47px;
+  left: 0;
+  background-repeat: no-repeat;
+  background-image: url(../images/aerosol.svg);
+  background-size: 18px 35px;
+  background-position: center;
 }
 .art-popup-wrapper .video-wrapper .title-wrapper h1 {
   font-weight: 700;
