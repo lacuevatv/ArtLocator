@@ -166,10 +166,10 @@ function getLastLocations(page) {
     var loader = document.querySelector('#loader-arts');
     
     //primero vemos si esta guardado
-    if ( sessionStorage && sessionStorage.getItem('page-'+page) ) {
+    if ( sessionStorage && sessionStorage.getItem('page_'+page) ) {
         
         //si esta guardado lo insertamos desde aca
-        htmlLocationsThumbnails( JSON.parse( sessionStorage.getItem('page-'+page) ) );
+        htmlLocationsThumbnails( JSON.parse( sessionStorage.getItem('page_'+page) ) );
 
         //si esta quitamos el loader
         loader.classList.add('off');
@@ -195,7 +195,7 @@ function getLastLocations(page) {
             } else {
                 //console.log(objAjax.responseText)
                 var resultado = JSON.parse(objAjax.responseText);
-                console.log(resultado)
+                //console.log(resultado)
                 if ( resultado.respuesta.status != 'ok' ) {
 
                     console.log(resultado.respuesta.error);
@@ -392,56 +392,97 @@ function updateFilesSaved(id) {
 
 //abre el popup de las locations
 function openMore (e, id) {
+    var location;
+    var wrapper = document.querySelector('.more-content-wrapper');
+    var contenedor = document.querySelector('.more-content-inner ');
+    var closeButton = document.querySelector('#close-btn');
+    var contenido = document.querySelector('#contenido');
+
     if (id == undefined) {
         id = e.getAttribute('data-id');
     }
-    
-    //wrapper
-    var wrapper = document.querySelector('.more-content-wrapper');
-    var contenedor = document.querySelector('.more-content-inner ');
-    var contenido = document.querySelector('#contenido');
-    var closeButton = document.querySelector('#close-btn');
 
-    if ( contenido.getAttribute('data-id') != id ) {
 
-        //remueve el contenido
-        contenido.innerHTML = '';
+    //agrega el loader al contenido para que se vea que está cargando
+    contenido.innerHTML = '<div class="loader" style="height:400px"><img src="assets/images/loader.gif" alt="loader"></div>';
 
-        //arma el contenido de la ventana   
-        var html = makeContentPopup(id);
-
-        contenido.innerHTML = html;
-
-        //activa galeria before after
-        var dataGaleria = document.querySelector('#data-before-after');
-        if ( dataGaleria != null) {
-            new beforeAfter({
-                'el'     : 'before-after', // or just the node object
-                'before' : dataGaleria.children[0].src,
-                'after'  : dataGaleria.children[1].src
-            });
-        }
-
-    } 
-    
-
-    //display block to wrapper
+    //display block to wrapper para que sea visible
     wrapper.style.display = 'block'
+    
+    //va hacia el contenedor y lo ubica en la ventana
+    window.scrollTo(0, getOffset(wrapper).top);
 
-    //asigna el tamaño al contenedor interno
+    //asigna el tamaño al contenedor interno para que haga la animacion
     setTimeout( function(){
         contenedor.style.width = wrapper.getBoundingClientRect().width + 'px';
         contenedor.style.height = wrapper.getBoundingClientRect().height + 'px';
     },100);
-    
+
+    if ( sessionStorage && sessionStorage.getItem('location_'+id) ) {
+        
+        location = JSON.parse(sessionStorage.getItem('location_'+id));
+        //busca el contenido localmente
+        makeContentPopup(location);
+
+    } else {
+        //busca el contenido por ajax
+
+        var objAjax;
+
+        var parametros = 'function=load-location';
+        parametros+= '&id='+id;
+        
+        objAjax = new XMLHttpRequest();
+        objAjax.addEventListener('error', errorAjax);
+        objAjax.addEventListener('load', function(){
+            if (objAjax.status != 200) {
+                errorAjax();
+            } else {
+                //console.log(objAjax.responseText)
+                var resultado = JSON.parse(objAjax.responseText);
+                
+                if ( resultado.respuesta.status != 'ok' ) {
+
+                    console.log(resultado.respuesta.error);
+
+                    //si el error es que no hay mas posts, avisa que no hay más post y luego carga el anterior
+                    if (resultado.respuesta.error == 'no-posts') {
+                        contenido.innerHTML = '<p class="no-more-posts">No hay más lugares para cargar</p>';
+
+                        setTimeout(function(){
+                            var idAnterior = parseInt(id)-1;
+                            openMore(null, idAnterior);
+                        }, 2000);
+                    }
+
+                } else {
+                    makeContentPopup(resultado.data);
+                    
+                    //guardamos la info en el navegador para que no haya que cargarla de nuevo
+                    sessionStorage.setItem('location_'+id, JSON.stringify(resultado.data));
+                }
+            }
+        });
+
+        objAjax.open('POST', ajaxFile);
+
+        //Send the proper header information along with the request
+        objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+        objAjax.send(parametros);
+    }
+
     //agrega el evento para cerrar la ventana
     closeButton.addEventListener('click', closeMore, false);
+    
 }
 
 function closeMore() {
     var closeButton = document.querySelector('#close-btn');
     var wrapper = document.querySelector('.more-content-wrapper');
     var contenedor = document.querySelector('.more-content-inner ');
+    var btnLeft = document.querySelector('#pops-pag-left');
+    var btnRight = document.querySelector('#pops-pag-right');
 
     //asigna el tamaño al contenedor interno para que vuelva a cero
     contenedor.style.width = '0';
@@ -452,37 +493,62 @@ function closeMore() {
         wrapper.style.display = 'none';
     },900);
 
-    //remueve el evento
+    //remueve el evento cerrar la ventana
     closeButton.removeEventListener('click', closeMore, false);
+
+    //remueve el evento de los navegadores
+    if (btnLeft != null ) {
+        btnLeft.removeEventListener('click', navigateLocation);
+    }
+    if (btnRight != null ) {
+        btnRight.removeEventListener('click', navigateLocation);
+    }
+}
+
+//esta funcion es cuando se hace clic en las flechitas de navegacion de los popups
+function navigateLocation() {
+    var id = this.getAttribute('data-id');
+
+    var btnLeft = document.querySelector('#pops-pag-left');
+    var btnRight = document.querySelector('#pops-pag-right');
+
+    if ( id == 0 ) {
+        return false;
+    }
+
+    //quitamos eventos de navegacion
+    btnLeft.removeEventListener('click', navigateLocation);
+    btnRight.removeEventListener('click', navigateLocation);
+
+    openMore (null, id);
 }
 
 /*
  * ARMA EL CONTENIDO DEL POPUP
  * busca en locations cargada a travez del id que recibe como parametro
 */
-function makeContentPopup(id) {
-    var html, marker;
+function makeContentPopup(location) {
+    var html = '';
+    var contenido = document.querySelector('#contenido');
+    var closeButton = document.querySelector('#close-btn');
 
-    for (var index = 0; index < locations.length; index++) {
-        if ( locations[index].id == id ) {
-            marker = locations[index];
-            break;
-        }
-    }
+    //remueve el contenido
+    contenido.innerHTML = '';
 
-    if ( marker == undefined ) {
+    //arma el contenido de la ventana   
+    if ( location == 'none' ) {
         html = '<p>No se encontró el  contenido</p>';
     } else {
         var titulo, tag, video, texto, direccion, imagen, imagenes, likes;
 
-        titulo = marker.data.titulo != '' ? marker.data.titulo : '';
-        tag = marker.data.tag != '' ? marker.data.tag : '';
-        texto = marker.data.excerpt != '' ? marker.data.excerpt : '';
-        imagen = marker.data.imagen != '' ? marker.data.imagen : '';
-        direccion = marker.data.direccion != '' ? marker.data.direccion : '';
-        video = marker.data.video;
-        imagenes = marker.data.imagenes;
-        likes = marker.likes != '' ? marker.likes : '';
+        titulo = location.data.titulo != '' ? location.data.titulo : '';
+        tag = location.data.tag != '' ? location.data.tag : '';
+        texto = location.data.excerpt != '' ? location.data.excerpt : '';
+        imagen = location.data.imagen != '' ? location.data.imagen : '';
+        direccion = location.data.direccion != '' ? location.data.direccion : '';
+        video = location.data.video;
+        imagenes = location.data.imagenes;
+        likes = location.likes != '' ? location.likes : '';
         
         html = `
             <article class="art-popup-wrapper">
@@ -498,11 +564,11 @@ function makeContentPopup(id) {
                     <div class="video">
                         <button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
 
-                        html +=  '<video id="videolocator" height="100%" poster="'+imagen[0]+'">';
+                        html +=  '<video id="videolocator" height="100%" poster="'+contenidoUrl+imagen[0]+'">';
                             for (var i = 0; i < video.length; i++) {
-                                html += '<source src="'
+                                html += '<source src="';
                                 
-                                html += video[i];
+                                html += contenidoUrl + video[i];
                                 
                                 html += '" type="video/';
                                     if ( video[i].search('mp4') != -1 ) {
@@ -514,7 +580,7 @@ function makeContentPopup(id) {
                                     }
                                 html += '">'
                             }
-                            html += '<img src="'+imagen[0]+'">';
+                            html += '<img src="'+contenidoUrl+imagen[0]+'">';
                         html += '</video>';
 
         html +=     `</div>
@@ -542,35 +608,45 @@ function makeContentPopup(id) {
                         `</div>
                     </div>
                 </div>
-                <div class="galeria-wrapper">
                 `;
-                    //galeria antes y despuess
-                    if ( imagenes.length == 2 && ( imagenes[0] != '' || imagenes[1] != ''  ) ) {
-                        html +=  '<div id="before-after" class="before-after"></div>';
+                if(imagenes != '') {
+                    html +=  '<div class="galeria-wrapper">';
+                    //galeria antes y despues
+                    html +=  '<div id="before-after" class="before-after"></div>';
                         html += '<div id="data-before-after" class="before-after" data-before-after style="display:none">';
-                            html += '<img src="'+imagenes[0]+'"></img>';
-                            html += '<img src="'+imagenes[1]+'"></img>';
-                        html += '</div>';
+                    if ( imagenes.antes.length > 1 || imagenes.despues.length > 1) {
+                        html += '<img src="'+contenidoUrl+imagenes.antes[0]+'" srcset="';
 
-                    } else if ( imagenes.length > 0 && ( imagenes[0] != '' || imagenes[1] != ''  ) ) {
-                        if ( imagenes[0] != '' ) {
-                            html += '<img src="'+imagenes[0]+'">';
-                        } else {
-                            if ( imagenes[1] != '' ) {
-                                html += '<img src="'+imagenes[0]+'">';
+                        if (imagenes.antes.length > 1) {
+                            for (var im = 0; im < imagenes.antes.length; im++) {
+                                html += contenidoUrl+imagenes.antes[im] + ' '+ im+1 + 'x,';
                             }
                         }
-                        
+
+                        html += '"></img>';
+                        html += '<img src="'+contenidoUrl+imagenes.despues[0]+'" srcset="';
+                        if (imagenes.despues.length > 1) {
+                            for (var ima = 0; ima < imagenes.despues.length; ima++) {
+                                html += contenidoUrl+imagenes.despues[ima] + ' '+ ima+1 + 'x,';
+                            }
+                        }   
+
+                        html += '"></img>';
+                    
                     } else {
-                        html += '<img src="'+imagen[0]+'">';
+                        //imagenes por defecto
+                        html += '<img src="'+contenidoUrl+imagenes.antes[0]+'">';
+                        html += '<img src="'+contenidoUrl+imagenes.despues[0]+'"></img>';
                     }
+                    html += '</div>';
+                }
+                html += '</div>';
         html += ` 
-                </div>
                 <div class="wrapper-pag">
-                    <span id="pops-pag-left" class="pag-direction"></span>
-                    <span id="pops-pag-right" class="pag-direction"></span>
+                    <span data-id="`+(parseInt(location.id)-1)+`" id="pops-pag-left" class="pag-direction"></span>
+                    <span data-id="`+(parseInt(location.id)+1)+`" id="pops-pag-right" class="pag-direction"></span>
                     <ul class="pagination-art">
-                        <li class="activo"></li>
+                        <li></li>
                         <li></li>
                         <li></li>
                         <li></li>
@@ -581,7 +657,26 @@ function makeContentPopup(id) {
         `;
     }
 
-    return html;
+    //inserta el contenido
+    contenido.innerHTML = html;
+
+    //activa galeria before after
+    var dataGaleria = document.querySelector('#data-before-after');
+    if ( dataGaleria != null) {
+        new beforeAfter({
+            'el'     : 'before-after', // or just the node object
+            'before' : dataGaleria.children[0].src,
+            'after'  : dataGaleria.children[1].src
+        });
+    }
+
+    //agrega los botones de navegacion
+    var btnLeft = document.querySelector('#pops-pag-left');
+    var btnRight = document.querySelector('#pops-pag-right');
+
+    btnLeft.addEventListener('click', navigateLocation);
+    btnRight.addEventListener('click', navigateLocation);
+    
 }
 
 function videoToogle(el) {
@@ -879,4 +974,17 @@ function myGeoLocation(){
 	{
 		console.log("Su navegador no soporta la API de geolocalización.");
 	}
+}
+
+
+//calcula posicion de un elemento
+function getOffset( el ) {
+    var _x = 0;
+    var _y = 0;
+    while( el && !isNaN( el.offsetLeft ) && !isNaN( el.offsetTop ) ) {
+        _x += el.offsetLeft - el.scrollLeft;
+        _y += el.offsetTop - el.scrollTop;
+        el = el.offsetParent;
+    }
+    return { top: _y, left: _x };
 }

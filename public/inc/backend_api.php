@@ -31,6 +31,15 @@ switch ($function) {
         echo json_encode($respuesta);
     break;
 
+    case 'load-location':
+
+        $id = isset( $_POST['id'] ) ? $_POST['id'] : null;
+        
+        $respuesta = getLocation($id);
+
+        echo json_encode($respuesta);
+    break;
+
     case 'load-locations-by-last-date-paginated' :
     
         $numeroPagina = isset( $_POST['pagina'] ) ? $_POST['pagina'] : 1;

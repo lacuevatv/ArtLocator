@@ -269,6 +269,11 @@ function getLocation($id) {
         'data' => null,
     );
 
+    if ($id == null || $id == '') {
+        $datos['respuesta']['error'] = 'no-id';
+        return $datos;
+    }
+
     //prepara la consulta
     $tabla = "kioskos";
     $by = "id='".$id."'";
