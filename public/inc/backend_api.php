@@ -26,8 +26,8 @@ switch ($function) {
     case 'load-locations-ubicacion':
 
         $ubicacion = isset( $_POST['ubicacion'] ) ? $_POST['ubicacion'] : null;
-        $respuesta = getLocations($ubicacion);
-
+        $respuesta = getLocations(null, $ubicacion);
+        
         echo json_encode($respuesta);
     break;
 

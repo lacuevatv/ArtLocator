@@ -12,7 +12,7 @@ var numeroPagina;
 console.log(numeroPagina);
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('ready');
+    
     /*
      * PRIMERO SE BORRA LA SESION PARA QUE CARGUE TODO DE NUEVO
     */
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.querySelector('#play').addEventListener('click', playVideo);
 
     if (window.innerWidth > 960) {
-        //playVideo();
+        playVideo();
     }
 
     /*
@@ -34,7 +34,14 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     document.querySelector('#zona-form').addEventListener('submit', function(e){
         e.preventDefault();
-        console.log('buscar por ubicacion');
+        
+        var prov = document.querySelector('#zona-provincia').value;
+
+        if (prov == undefined){
+            prov = null;
+        }
+        
+        getLocationsByUbicacion(prov);
     });
 
     /*
@@ -52,16 +59,15 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.addEventListener('load', function() {
-    console.log('load');
-    
 
     /*
      * busca los ultimos kioskos y paginacion
      */
     //llama a las ultimas locacitions, pagina 0
     getLastLocations(0);
-    //inicia el mapa
-    //initArtLocator();
+    
+    //inicia el mapa buscando locaciones
+    getLocationsByUbicacion(null);
 
 });
 
@@ -561,9 +567,10 @@ function makeContentPopup(location) {
                         + tag +   
                         `</h5>
                     </div>
-                    <div class="video">
-                        <button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
-
+                    <div class="video">`
+                    if( video != '' ) {
+                        `<button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
+                    }
                         html +=  '<video id="videolocator" height="100%" poster="'+contenidoUrl+imagen[0]+'">';
                             for (var i = 0; i < video.length; i++) {
                                 html += '<source src="';
@@ -694,20 +701,23 @@ function videoToogle(el) {
  * MAPA
  * google maps api y markers
 */
-function initMap() {
+/*function initMap() {
     console.log('hola')
     google.maps.event.addDomListener(window, 'load', initArtLocator);
-}
+}*/
 
 //al hacer clic en ver mas en los markers, se pasa el objeto para rescatar el id del marker y luego pasarla a la funcion de abrir el popup
 function openMoreId(object) {
     var id = object.getAttribute('data-id');
-    openMore(id);
+    openMore(null, id);
 }
 
-function initArtLocator() {
 
-    var center = new google.maps.LatLng(centerMapDefault[0], centerMapDefault[1]);
+//esta funcion inica el mapa
+function initArtLocator(latitud, longitud, locations) {
+    var divMap = document.getElementById('map');
+    divMap.innerHTML = '';
+    var center = new google.maps.LatLng(latitud, longitud);
 
     var colores = [
         {
@@ -726,7 +736,7 @@ function initArtLocator() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     };
 
-    var map = new google.maps.Map(document.getElementById('map'),mapOptions);
+    var map = new google.maps.Map(divMap,mapOptions);
 
     var estilo = new google.maps.StyledMapType(colores);
     map.mapTypes.set('mapa-bn', estilo);
@@ -784,9 +794,9 @@ function initArtLocator() {
             html += '<div class="mapinfo-wrapper">';
             html +=    '<figure class="imagen-destacada">';
             if ( contenido.data.imagen.length > 0 && contenido.data.imagen[0] != '') {
-                html +=     '<img src="' + contenido.data.imagen[0] + '"';
+                html +=     '<img src="' + contenidoUrl + contenido.data.imagen[0] + '"';
                 if ( contenido.data.imagen.length > 1 ) {
-                    html +=     'srcset="' + contenido.data.imagen[0] + ' 1x, ' + contenido.data.imagen[1] + ', 2x"';
+                    html +=     'srcset="' + contenidoUrl + contenido.data.imagen[0] + ' 1x, ' + contenidoUrl + contenido.data.imagen[1] + ', 2x"';
                 }
                 html +=    '>';
             }
@@ -853,24 +863,15 @@ function initArtLocator() {
 */
 //recupera el contenido buscando locations
 function getLocationsByUbicacion( ubicacion ) {
+    
     var objAjax;
     var parametros = 'function=load-locations-ubicacion';
     if ( ubicacion != null ) {
-        parametros += '&' + ubicacion;
+        parametros += '&ubicacion=' + ubicacion;
     }
     
     objAjax = new XMLHttpRequest();
-    objAjax.addEventListener('load', cargarCampos);
-    objAjax.addEventListener('error', errorAjax);
-
-    objAjax.open('POST', ajaxFile);
-
-    //Send the proper header information along with the request
-    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-
-    objAjax.send(parametros);
-
-    function cargarCampos() {
+    objAjax.addEventListener('load', function(){
 
         if (objAjax.status != 200) {
             errorAjax();
@@ -878,21 +879,23 @@ function getLocationsByUbicacion( ubicacion ) {
             //console.log(objAjax.responseText);
             
             var resultado = JSON.parse(objAjax.responseText);
-            
-            console.log(resultado);
 
-            return resultado;
+            if ( resultado.respuesta.status != 'ok' ) {
+                console.log(resultado.respuesta.error);
+            } else {
+                console.log(resultado);
+                initArtLocator(centerMapDefault[0], centerMapDefault[1], resultado.data);
+            }
+
         }
-    }
+    });
 
-    function errorAjax() {
-        console.log('error');
+    objAjax.open('POST', ajaxFile);
 
-        var error = objAjax.status;
+    //Send the proper header information along with the request
+    objAjax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-        return error;
-    }
-
+    objAjax.send(parametros);
 }
 
 function getLocationsPaginatedByDate( actualPage ) {
