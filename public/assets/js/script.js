@@ -103,9 +103,10 @@ function playVideo() {
         var pantallaWidth = window.innerWidth;
 
         var nombreVideo = 'movie.mp4';
-
-        html += '<video id="videolocator" height="100%" muted autoplay>';
-            html += '<source src="'+ baseurl + '/contenido/' + nombreVideo;
+        var videoUrl = contenidoUrl + nombreVideo; 
+        
+        html += '<video id="videolocator" height="100%" muted autoplay loop>';
+            html += '<source src="'+ videoUrl;
             html += '" type="video/mp4';//ogg o webm
             html += '">'
             html += '<img src="">';//por si no soporta elemento video
@@ -418,14 +419,6 @@ function openMore (e, id) {
 
     //display block to wrapper para que sea visible
     wrapper.style.display = 'block'
-    
-    //va hacia el contenedor y lo ubica en la ventana
-    if (window.innerWidth > 960 ) {
-        //var _top = document.querySelector('.map-section').scrollHeight + document.querySelector('.map-section').offsetTop;
-        //window.scrollTo(0, _top);
-        smoothScroll('.map-section');
-    }
-
     
     //asigna el tamaño al contenedor interno para que haga la animacion
     setTimeout( function(){
@@ -763,9 +756,14 @@ function initArtLocator(latitud, longitud, locations) {
     var marker, i;
 
     for (i = 0; i < locations.length; i++) {  
+        var imagenMarker = '';
+        if (locations[i].markerImage != '') {
+            imagenMarker = contenidoUrl + locations[i].markerImage;
+        }
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(locations[i].lat, locations[i].long),
           map: map,
+          icon: imagenMarker,
           title:locations[i].titulo,
         });
   

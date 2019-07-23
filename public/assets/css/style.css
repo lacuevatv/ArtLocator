@@ -1321,14 +1321,12 @@ html, body {
   height: 100%;
   top: 0;
   left: 0;
-}
-@media (min-width: 992px) {
-  .more-content-wrapper {
-    position: absolute;
-  }
+  /*@media (min-width: $md) {
+      position: absolute;
+  }*/
 }
 .more-content-wrapper .more-content-inner {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 0;
   height: 0;
   overflow: hidden;
@@ -1352,6 +1350,15 @@ html, body {
   -ms-transition: all 800ms;
   transition: all 800ms;
 }
+@media (min-width: 992px) {
+  .more-content-wrapper .more-content-inner {
+    -webkit-justify-content: flex-end;
+    -moz-justify-content: flex-end;
+    -ms-justify-content: flex-end;
+    -o-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+}
 .more-content-wrapper .more-content-inner .contenedor {
   position: relative;
   overflow: hidden;
@@ -1359,6 +1366,11 @@ html, body {
   background-color: #F8F8F8;
   width: 100%;
   height: 100%;
+}
+@media (min-width: 992px) {
+  .more-content-wrapper .more-content-inner .contenedor {
+    width: 50%;
+  }
 }
 .more-content-wrapper .more-content-inner .contenedor .close-btn {
   position: absolute;
