@@ -1126,10 +1126,9 @@ html, body {
                 height: 24px;
                 cursor: pointer;
                 z-index: 111;
-                background-image: url(../images/arrow-back.svg);
+                background-image: url(../images/arrow_back_white.svg);
                 background-repeat: no-repeat;
                 background-size: 30px 24px;
-                @include transform(rotate(180deg));
 
                 &:hover {
                     zoom: 1;
@@ -1181,7 +1180,7 @@ html, body {
                 top: -47px;
                 left: 0;
                 background-repeat: no-repeat;
-                background-image: url(../images/aerosol.svg);
+                background-image: url(../images/aerosol_white.svg);
                 background-size: 18px 35px;
                 background-position: center;
             }
