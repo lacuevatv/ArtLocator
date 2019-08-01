@@ -1290,6 +1290,10 @@ html, body {
                 font-size: 16px;
                 font-weight: 300;
                 margin: 25px 0;
+
+                strong {
+                    font-weight: bold;
+                }
             }
 
             .direccion {
@@ -1316,10 +1320,10 @@ html, body {
     }//.contenido-wrapper
     
     .galeria-wrapper {
-        @media (min-width: $md) {
+        /*@media (min-width: $md) {
             height: 500px;
             overflow: hidden;
-        }
+        }*/
     }
 
     .wrapper-pag {

@@ -613,7 +613,7 @@ function makeContentPopup(location) {
                             + texto + 
                         `</div>
                         <div class="text">
-                            <strong style="font-weight:bold">Kiosko:</strong> `
+                            <strong>Kiosko:</strong> `
                             + kiosko + 
                         `</div>
                         <div class="direccion">`
