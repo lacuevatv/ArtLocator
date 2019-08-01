@@ -9,6 +9,7 @@ var contenidoUrl = baseurl + 'contenido/';
 var centerMapDefault = [-34.591444, -58.428068];
 var videoLoad = false;
 var numeroPagina;
+var nombreVideo = '';
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -102,7 +103,6 @@ function playVideo() {
         var imagenHeader = document.querySelector('#imagen-header');
         var pantallaWidth = window.innerWidth;
 
-        var nombreVideo = 'movie.mp4';
         var videoUrl = contenidoUrl + nombreVideo; 
         
         html += '<video id="videolocator" height="100%" muted autoplay loop>';
