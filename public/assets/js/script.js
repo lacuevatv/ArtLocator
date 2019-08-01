@@ -548,15 +548,15 @@ function makeContentPopup(location) {
         html = '<p>No se encontró el  contenido</p>';
     } else {
         var titulo, tag, video, texto, direccion, imagen, imagenes, likes;
-
-        titulo = location.data.titulo != '' ? location.data.titulo : '';
-        tag = location.data.tag != '' ? location.data.tag : '';
-        texto = location.data.excerpt != '' ? location.data.excerpt : '';
-        imagen = location.data.imagen != '' ? location.data.imagen : '';
-        direccion = location.data.direccion != '' ? location.data.direccion : '';
-        video = location.data.video;
-        imagenes = location.data.imagenes;
-        likes = location.likes != '' ? location.likes : '';
+        var kiosko = location.titulo != '' ? location.titulo : '';
+        var titulo = location.data.titulo != '' ? location.data.titulo : '';
+        var tag = location.data.tag != '' ? location.data.tag : '';
+        var texto = location.data.texto != '' ? location.data.texto : '';
+        var imagen = location.data.imagen != '' ? location.data.imagen : '';
+        var direccion = location.data.direccion != '' ? location.data.direccion : '';
+        var video = location.data.video;
+        var imagenes = location.data.imagenes;
+        var likes = location.likes != '' ? location.likes : '';
         
         html = `
             <article class="art-popup-wrapper">
@@ -611,6 +611,10 @@ function makeContentPopup(location) {
                     <div class="text-wrapper">
                         <div class="text">`
                             + texto + 
+                        `</div>
+                        <div class="text">
+                            <strong style="font-weight:bold">Kiosko:</strong> `
+                            + kiosko + 
                         `</div>
                         <div class="direccion">`
                             + direccion +
