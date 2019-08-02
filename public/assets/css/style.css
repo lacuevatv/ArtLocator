@@ -1400,7 +1400,7 @@ html, body {
 .art-popup-wrapper .video-wrapper {
   background-color: #111212;
   position: relative;
-  height: 100vh;
+  height: 240px;
 }
 @media (min-width: 768px) {
   .art-popup-wrapper .video-wrapper {
@@ -1415,7 +1415,12 @@ html, body {
 }
 @media (min-width: 1200px) {
   .art-popup-wrapper .video-wrapper {
-    height: 450px;
+    height: 480px;
+  }
+}
+@media (min-width: 1600px) {
+  .art-popup-wrapper .video-wrapper {
+    height: 700px;
   }
 }
 .art-popup-wrapper .video-wrapper .title-wrapper {
