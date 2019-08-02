@@ -767,7 +767,10 @@ function initArtLocator(latitud, longitud, locations) {
         marker = new google.maps.Marker({
           position: new google.maps.LatLng(locations[i].lat, locations[i].long),
           map: map,
-          icon: imagenMarker,
+          icon: {
+            url: imagenMarker,
+            scaledSize: new google.maps.Size(33,43)
+          },
           title:locations[i].titulo,
         });
   
