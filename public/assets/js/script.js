@@ -48,12 +48,12 @@ document.addEventListener('DOMContentLoaded', function() {
     /*
      * prepara el boton de buscar por mi ubicacion
      */
-    document.querySelector('#myLocationBtn').addEventListener('click', function(e){
+    /*document.querySelector('#myLocationBtn').addEventListener('click', function(e){
         //cierra el popup si esta abierto
         document.querySelector('#close-btn').click();
 
         myGeoLocation();
-    });
+    });*/
 
     /*
     * arma las ubicaciones del select
