@@ -781,7 +781,7 @@ function initArtLocator(latitud, longitud, locations) {
     ];
 
     var mapOptions = {
-        zoom: 7,
+        zoom: 6,//original era 7
         center: center,
         mapTypeControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP
