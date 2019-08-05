@@ -526,7 +526,14 @@ function openMore (e, id) {
     }
 
     //agrega el evento para cerrar la ventana
-    closeButton.addEventListener('click', closeMore, false);
+    closeButton.addEventListener('click', closeMore, true);
+
+    wrapper.addEventListener('click', function(){
+        var inner = document.querySelector('.more-content-inner');
+        if ( event.target == inner ) {
+            closeMore();
+        }
+    }, true);
     
 }
 
@@ -548,6 +555,13 @@ function closeMore() {
 
     //remueve el evento cerrar la ventana
     closeButton.removeEventListener('click', closeMore, false);
+
+    wrapper.removeEventListener('click', function(){
+        var inner = document.querySelector('.more-content-inner');
+        if ( event.target == inner ) {
+            closeMore();
+        }
+    }, true);
 
     //remueve el evento de los navegadores
     if (btnLeft != null ) {
@@ -606,14 +620,7 @@ function makeContentPopup(location) {
         html = `
             <article class="art-popup-wrapper">
                 <div class="video-wrapper">
-                    <div class="title-wrapper">
-                        <h1 class="title">`
-                        + titulo +    
-                        `</h1>
-                        <h5>`
-                        + tag +   
-                        `</h5>
-                    </div>
+                    <div class="title-wrapper"></div>
                     <div class="video">`
                     if( video != '' ) {
                         `<button class="playbtn" id="play" onclick="videoToogle(this)"></button>`;
@@ -654,12 +661,18 @@ function makeContentPopup(location) {
         }
         html +=     `
                     <div class="text-wrapper">
+                        <div class="title-wrapper">`;
+
+            if ( titulo != '' ) {
+                html += '<h1 class="title">Nombre de la obra: '+ titulo + '</h1>';
+            }
+            if ( tag != '' ) {
+                html += '<h5>Nombre del Artista: '+ tag + '</h5>';
+            }
+                            
+        html +=         `</div>
                         <div class="text">`
                             + texto + 
-                        `</div>
-                        <div class="text">
-                            <strong>Kiosko:</strong> `
-                            + kiosko + 
                         `</div>
                         <div class="direccion">`
                             + direccion +

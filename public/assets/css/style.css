@@ -1443,16 +1443,6 @@ html, body {
   background-size: 18px 35px;
   background-position: center;
 }
-.art-popup-wrapper .video-wrapper .title-wrapper h1 {
-  font-weight: 700;
-  font-family: "CAGeheimagent", "Roboto", sans-serif;
-  font-size: 36px;
-  line-height: 36px;
-}
-.art-popup-wrapper .video-wrapper .title-wrapper h5 {
-  font-size: 14px;
-  line-height: 14px;
-}
 .art-popup-wrapper .video-wrapper .video {
   position: relative;
   z-index: 1;
@@ -1541,6 +1531,24 @@ html, body {
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
+}
+.art-popup-wrapper .contenido-wrapper .text-wrapper h1 {
+  font-weight: 700;
+  font-family: "CAGeheimagent", "Roboto", sans-serif;
+  line-height: 36px;
+  font-size: 26px;
+  margin-top: 0.5rem;
+}
+.art-popup-wrapper .contenido-wrapper .text-wrapper h1 strong {
+  font-weight: 700;
+}
+.art-popup-wrapper .contenido-wrapper .text-wrapper h5 {
+  font-size: 20px;
+  line-height: 24px;
+  margin-top: 0.5rem;
+}
+.art-popup-wrapper .contenido-wrapper .text-wrapper h5 strong {
+  font-weight: 700;
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper .text {
   font-size: 16px;
