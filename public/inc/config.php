@@ -29,4 +29,4 @@ define('DB_NAME', 'artlocator');
  * CONFIGURACIONES
  * 
 */
-define ('POSTPERPAG', 8);//indica al paginador cuantos se muestran por pagina para calcular el offset además de que el loop muestra solo esos
+define ('POSTPERPAG', 4);//indica al paginador cuantos se muestran por pagina para calcular el offset además de que el loop muestra solo esos

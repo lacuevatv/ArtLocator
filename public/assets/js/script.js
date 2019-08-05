@@ -10,6 +10,8 @@ var centerMapDefault = [-34.591444, -58.428068];
 var videoLoad = false;
 var numeroPagina;
 var nombreVideo = '';
+var autoSlideLocation;
+var slideSpeed = 7000;
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -238,6 +240,7 @@ function getLastLocations(page) {
     }
 }
 
+//setea las paginas de los locator pidiendo info al servidor
 function setPages(paginas) {
     var contenedorPages = document.querySelector('#contenedor-paginas');
     
@@ -267,15 +270,57 @@ function setPages(paginas) {
                 for (var j = 0; j < liPages.length; j++) {
                     liPages[j].classList.remove('activo');
                 }
-        
                 //le agrego la clase activo
                 this.classList.add('activo');
+
+                clearInterval(autoSlideLocation);
+
+                autoSlideLocation = setInterval(startAutoSlidePagesLocation, slideSpeed);
                 
             });
 
             contenedorPages.appendChild(li);
+
         }
+        
+        autoSlideLocation = setInterval(startAutoSlidePagesLocation, slideSpeed);
+
     }
+    
+}
+
+
+//ejecuta el paginado automatico
+function startAutoSlidePagesLocation() {
+    var liPages = document.querySelectorAll('#contenedor-paginas li');
+
+    //quitamos la clase activo de todos
+    for (var i = 0; i < liPages.length; i++) {
+        liPages[i].classList.remove('activo');
+    }
+
+    //aumentamos la pagina
+    numeroPagina++;
+    
+    if ( numeroPagina == liPages.length ) {
+
+        ///vuelvo a cero las paginas
+        numeroPagina = 0;
+        getLastLocations(numeroPagina);    
+        
+        //marcamos cual pagina esta activa
+        liPages[0].classList.add('activo');
+
+    } else {
+
+        //busca la otra pagina
+        getLastLocations(numeroPagina);
+        //marcamos cual pagina esta activa
+        liPages[numeroPagina].classList.add('activo');
+        
+    }
+    
+
 }
 
 function htmlLocationsThumbnails(locations) {
