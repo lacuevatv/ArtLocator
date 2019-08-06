@@ -223,6 +223,7 @@ function getLocations ( $limit = null, $ubicacion = null, $orden = null  ) {
             'status' => 'error',
         ),
         'data' => null,
+        'ubicacion' => null,
     );
 
     //prepara la consulta
@@ -231,6 +232,12 @@ function getLocations ( $limit = null, $ubicacion = null, $orden = null  ) {
 
     if ( $ubicacion != null ) {
         $condition = "ubicacion_id='".$ubicacion."'";
+
+        $ubicacionData = getPostFromTabla( 'ubicaciones', 'id="'.$ubicacion.'"' );
+
+        if ($ubicacion != null ) {
+            $datos['ubicacion'] = $ubicacionData;
+        }
     }
 
     $posts = getPostsFromTabla( $tabla, $limit, $condition, $orden);

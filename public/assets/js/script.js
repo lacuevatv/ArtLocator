@@ -7,6 +7,7 @@ var baseurl = window.location.href;
 var ajaxFile = window.location.href + 'inc/backend_api.php';
 var contenidoUrl = baseurl + 'contenido/';
 var centerMapDefault = [-34.591444, -58.428068];
+var zoomDefault = 10;//original era 7
 var videoLoad = false;
 var numeroPagina;
 var nombreVideo = '';
@@ -778,11 +779,11 @@ function openMoreId(object) {
 
 
 //esta funcion inica el mapa
-function initArtLocator(latitud, longitud, locations) {
+function initArtLocator(latitud, longitud, zoomMapa, locations) {
     var divMap = document.getElementById('map');
     divMap.innerHTML = '';
     var center = new google.maps.LatLng(latitud, longitud);
-
+    
     var colores = [
         {
           featureType: "all",
@@ -794,7 +795,7 @@ function initArtLocator(latitud, longitud, locations) {
     ];
 
     var mapOptions = {
-        zoom: 10,//original era 7
+        zoom: zoomMapa,
         center: center,
         mapTypeControl: false,
         mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -956,7 +957,24 @@ function getLocationsByUbicacion( ubicacion ) {
                 console.log(resultado.respuesta.error);
             } else {
                 //console.log(resultado);
-                initArtLocator(centerMapDefault[0], centerMapDefault[1], resultado.data);
+
+                let latitud = centerMapDefault[0],
+                    longitud = centerMapDefault[1]
+                    zoom = zoomDefault;
+                   
+                if (resultado.ubicacion != null ) {
+                    if (resultado.ubicacion.latitud != '') {
+                        latitud = resultado.ubicacion.latitud;
+                    }
+                    if (resultado.ubicacion.longitud != '') {
+                        longitud = resultado.ubicacion.longitud;
+                    }
+                    if (resultado.ubicacion.zoom != '') {
+                        zoom = parseFloat(resultado.ubicacion.zoom);
+                    } 
+                }
+                console.log(latitud, longitud, zoom, resultado.data)
+                initArtLocator(latitud, longitud, zoom, resultado.data);
             }
 
         }
