@@ -423,7 +423,7 @@ html, body {
   /* IE6-9 */
 }
 .main-header .header-content {
-  padding: 20px 36px;
+  padding: 20px 36px 70px;
   position: relative;
   z-index: 11;
   display: flex;
