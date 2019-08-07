@@ -17,15 +17,15 @@ var_dump($locations);
 /*$kiosko = getLocation(4);
 var_dump($kiosko);*/
 
-$imagen= array('chascomus-despues.jpg' );
+$imagen= array('gascon-despues.jpg' );
 
 echo serialize($imagen);
 
 echo '<br><br>';
 
 $imagenes= array(
-    'antes' => array( 'chascomus-antes.jpg' ),
-    'despues' => array( 'chascomus-despues.jpg' ),
+    'antes' => array( 'beiro-antes.jpg' ),
+    'despues' => array( 'beiro-despues.jpg' ),
 );
 
 echo serialize($imagenes);
@@ -39,21 +39,21 @@ echo serialize($video);
 echo '<br><br>';
 
 $kiosko = array(
-    'titulo' => 'Ruartes Julio Javier',
-    'latitud' => '-35.5768292',
-    'longitud' => '-58.0087402',
-    'ubicacion_id' => 2,
-    'marker' => 'marker-amarillo.png',
+    'titulo' => '',
+    'latitud' => '',
+    'longitud' => '',
+    'ubicacion_id' => 1,
+    'marker' => 'marker-violeta.png',
     'likes' => 0,
-    'data_titulo' => 'Plantas de Chascomús',
+    'data_titulo' => '',
     'data_imagen' => serialize($imagen),
-    'data_tag' => 'Pedro Arteaga (El Pit)',
-    'data_resumen' => 'Una combinación de colores y formas naturales que crean un espacio atractivo para el ambiente callejero.',
+    'data_tag' => '',
+    'data_resumen' => '',
     'data_video' => '',
-    'data_texto' => 'Una combinación de colores y formas naturales que crean un espacio atractivo para el ambiente callejero.',
-    'data_direccion' => 'Avda Lastra 500 – CHASCOMUS',
+    'data_texto' => '',
+    'data_direccion' => '',
     'data_imagenes' => serialize($imagenes),
-    'fecha' => '2019-08-01',
+    'fecha' => '2019-08-07',
 );
 
 $query = "INSERT into kioskos (titulo, latitud, longitud, ubicacion_id, marker, likes, data_titulo, data_imagen, data_tag, data_resumen, data_video, data_texto, data_direccion, data_imagenes, fecha) values(";
