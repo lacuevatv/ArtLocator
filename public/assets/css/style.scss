@@ -1281,11 +1281,11 @@ html, body {
         .text-wrapper {
             
             h1 {
-                font-weight: 700;
-                font-family: $fuente-secundaria;
+                //font-weight: 700;
+                //font-family: $fuente-secundaria;
                 //font-size: 36px;
-                line-height: 36px;
-                font-size: 26px;
+                line-height: 20px;
+                font-size: 18px;
                 margin-top: .5rem;
 
                 strong {
@@ -1296,8 +1296,8 @@ html, body {
             h5 {
                 //font-size: 14px;
                 //line-height: 14px;
-                font-size: 20px;
-                line-height: 24px;
+                font-size: 18px;
+                line-height: 20px;
                 margin-top: .5rem;
 
                 strong {

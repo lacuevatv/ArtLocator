@@ -1533,18 +1533,16 @@ html, body {
   transform: translateY(-50%);
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper h1 {
-  font-weight: 700;
-  font-family: "CAGeheimagent", "Roboto", sans-serif;
-  line-height: 36px;
-  font-size: 26px;
+  line-height: 20px;
+  font-size: 18px;
   margin-top: 0.5rem;
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper h1 strong {
   font-weight: 700;
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper h5 {
-  font-size: 20px;
-  line-height: 24px;
+  font-size: 18px;
+  line-height: 20px;
   margin-top: 0.5rem;
 }
 .art-popup-wrapper .contenido-wrapper .text-wrapper h5 strong {

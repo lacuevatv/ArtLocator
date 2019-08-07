@@ -12,7 +12,7 @@ var videoLoad = false;
 var numeroPagina;
 var nombreVideo = '';
 var autoSlideLocation;
-var slideSpeed = 7000;
+var slideSpeed = 10000;
 
 document.addEventListener('DOMContentLoaded', function() {
     
@@ -180,10 +180,10 @@ function getLastLocations(page) {
     var loader = document.querySelector('#loader-arts');
     
     //primero vemos si esta guardado
-    if ( sessionStorage && sessionStorage.getItem('page_'+page) ) {
+    if ( sessionStorage.getItem('pages_'+page) ) {
         
         //si esta guardado lo insertamos desde aca
-        htmlLocationsThumbnails( JSON.parse( sessionStorage.getItem('page_'+page) ) );
+        htmlLocationsThumbnails( JSON.parse( sessionStorage.getItem('pages_'+page) ) );
 
         //si esta quitamos el loader
         loader.classList.add('off');
@@ -472,7 +472,7 @@ function openMore (e, id) {
         contenedor.style.height = wrapper.getBoundingClientRect().height + 'px';
     },100);
 
-    if ( sessionStorage && sessionStorage.getItem('location_'+id) ) {
+    if ( sessionStorage.getItem('location_'+id) ) {
         
         location = JSON.parse(sessionStorage.getItem('location_'+id));
         //busca el contenido localmente
@@ -664,11 +664,11 @@ function makeContentPopup(location) {
                     <div class="text-wrapper">
                         <div class="title-wrapper">`;
 
-            if ( titulo != '' ) {
-                html += '<h1 class="title">Nombre de la obra: '+ titulo + '</h1>';
-            }
             if ( tag != '' ) {
-                html += '<h5>Nombre del Artista: '+ tag + '</h5>';
+                html += '<h5>Artista: '+ tag + '</h5>';
+            }
+            if ( titulo != '' ) {
+                html += '<h1 class="title">Obra: '+ titulo + '</h1>';
             }
                             
         html +=         `</div>
@@ -733,14 +733,17 @@ function makeContentPopup(location) {
     contenido.innerHTML = html;
 
     //activa galeria before after
-    var dataGaleria = document.querySelector('#data-before-after');
-    if ( dataGaleria != null) {
-        new beforeAfter({
-            'el'     : 'before-after', // or just the node object
-            'before' : dataGaleria.children[0].src,
-            'after'  : dataGaleria.children[1].src
-        });
-    }
+    setTimeout(function(){
+        var dataGaleria = document.querySelector('#data-before-after');
+        if ( dataGaleria != null) {
+            new beforeAfter({
+                'el'     : 'before-after', // or just the node object
+                'before' : dataGaleria.children[0].src,
+                'after'  : dataGaleria.children[1].src
+            });
+        }
+    },900)
+    
 
     //agrega los botones de navegacion
     var btnLeft = document.querySelector('#pops-pag-left');
@@ -973,7 +976,7 @@ function getLocationsByUbicacion( ubicacion ) {
                         zoom = parseFloat(resultado.ubicacion.zoom);
                     } 
                 }
-                console.log(latitud, longitud, zoom, resultado.data)
+                
                 initArtLocator(latitud, longitud, zoom, resultado.data);
             }
 
