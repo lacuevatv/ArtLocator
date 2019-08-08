@@ -99,8 +99,13 @@ function playVideo() {
     var btnCerrar = document.querySelector('#closevideo');
     var headerContent = document.querySelector('.header-content');
 
-    html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=0&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
-
+    if ( pantallaWidth > 960 ) {
+        //cuando no es movil va mute
+        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=1&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
+    } else {
+        //cuando es movil tiene sonido
+        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=0&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
+    }
     videoWrapper.innerHTML = html;
    
     if ( pantallaWidth > 960 ) {
