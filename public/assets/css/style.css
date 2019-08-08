@@ -327,6 +327,7 @@ html, body {
   position: relative;
   width: 100%;
   height: 100vh;
+  max-height: 640px;
   z-index: 1;
   background-color: #111212;
   color: #fff;
@@ -334,6 +335,7 @@ html, body {
 @media (min-width: 565px) {
   .main-header {
     height: 100%;
+    max-height: none;
   }
 }
 @media (min-width: 768px) {
@@ -403,6 +405,25 @@ html, body {
   -ms-justify-content: center;
   -o-justify-content: center;
   justify-content: center;
+}
+.main-header .background-header .close-video-movil {
+  position: absolute;
+  z-index: 1;
+  opacity: 0;
+  top: 2rem;
+  right: 2rem;
+  width: 30px;
+  height: 30px;
+  color: white;
+  -webkit-transition: all 500ms;
+  -moz-transition: all 500ms;
+  -ms-transition: all 500ms;
+  transition: all 500ms;
+}
+@media (min-width: 992px) {
+  .main-header .background-header .close-video-movil {
+    display: none;
+  }
 }
 .main-header .background-header .degradado {
   position: absolute;

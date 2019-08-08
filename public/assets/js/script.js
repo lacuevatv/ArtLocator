@@ -88,43 +88,48 @@ window.addEventListener('load', function() {
 
 //sirve para poner el video del header o para precargarlo en el movil
 function playVideo() {
+    
+    //se carga el video
+    var html = '';
+    var backgroundHeader = document.querySelector('.background-header');
+    var degradado = backgroundHeader.querySelector('.degradado');
+    var videoWrapper = document.querySelector('#video-wrapper');
+    var imagenHeader = document.querySelector('#imagen-header');
+    var pantallaWidth = window.innerWidth;
+    var btnCerrar = document.querySelector('#closevideo');
+    var headerContent = document.querySelector('.header-content');
 
-    if (videoLoad ) {
+    html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=0&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
 
-        var video = document.getElementById("videolocator");
-        if ( video.paused ) {
-            video.play();
-        } else {
-            video.pause();
+    videoWrapper.innerHTML = html;
+   
+    if ( pantallaWidth > 960 ) {
+        videoWrapper.querySelector('iframe').onload = function() {
+            imagenHeader.style.opacity = 0;   
+            //imagenHeader.style.zIndex = 1;  
         }
-        
     } else {
-        //se carga el video
-
-        var html = '';
-        var videoWrapper = document.querySelector('#video-wrapper');
-        var imagenHeader = document.querySelector('#imagen-header');
-        var pantallaWidth = window.innerWidth;
-
-        var videoUrl = contenidoUrl + nombreVideo; 
+        //subo el z index del fondo
         
-        html += '<video id="videolocator" height="100%" muted autoplay loop>';
-            html += '<source src="'+ videoUrl;
-            html += '" type="video/mp4';//ogg o webm
-            html += '">'
-            html += '<img src="">';//por si no soporta elemento video
-        html += '</video>';
+        backgroundHeader.style.zIndex = 1111;
+        headerContent.style.opacity = 0;
+        imagenHeader.style.opacity = 0;   
+        imagenHeader.style.zIndex = 1; 
+        btnCerrar.style.zIndex = 1111;
+        btnCerrar.style.opacity = 1;
+        degradado.style.display = 'none';
 
-        videoWrapper.innerHTML = html;
-
-        var video = document.getElementById("videolocator");
-
-        video.onloadeddata = function() {
-            imagenHeader.style.opacity = 0;
-        };
-
-        //coloco la variable como true asi no hay que cargarlo de nuevo
-        videoLoad = true;
+        //activo el boton
+        btnCerrar.addEventListener('click', function(){
+            headerContent.style.opacity = 1;
+            backgroundHeader.style.zIndex = 1;
+            videoWrapper.innerHTML = '';
+            imagenHeader.style.opacity = 1;  
+            imagenHeader.style.zIndex = 11; 
+            btnCerrar.style.zIndex = 1;
+            btnCerrar.style.opacity = 0; 
+            degradado.style.display = 'block';
+        });
     }
 }
 

@@ -150,12 +150,14 @@ html, body {
     position: relative;
     width: 100%;
     height: 100vh;
+    max-height: 640px;
     z-index: 1;
     background-color: $color-negro;
     color: $color-blanco;
     
     @media (min-width: $xs) {
         height: 100%;
+        max-height: none;
     }
     @media (min-width: $sm) {
         height: 100vh;
@@ -213,6 +215,22 @@ html, body {
             -ms-justify-content: center;
             -o-justify-content: center;
             justify-content: center;
+
+        }
+
+        .close-video-movil {
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            top: 2rem;
+            right: 2rem;
+            width: 30px;
+            height: 30px;
+            color: white;
+            @include transition(all $transitionSpeed);
+            @media (min-width: $md) {
+                display: none;
+            }
         }
 
         .degradado{
