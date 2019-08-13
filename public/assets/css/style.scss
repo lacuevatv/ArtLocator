@@ -396,7 +396,9 @@ html, body {
                 line-height: 40px;
             }
             @media (min-width: $md) {
-                max-width: 550px
+                max-width: 166px;
+                font-size: 16px;
+                padding: 5px 0;
             }
 
             > span {
@@ -415,6 +417,12 @@ html, body {
                     right: -30px;
                     top: 50%;
                     @include transform(translateY(-50%));
+
+                    @media (min-width: $md) {
+                        height: 16px;
+                        width: 16px;
+                        background-size: 16px 16px;
+                    }
                 }
             } 
         }
