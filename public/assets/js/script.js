@@ -28,9 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
      */
     document.querySelector('#play').addEventListener('click', playVideo);
 
-    if (window.innerWidth > 960) {
-        playVideo();
-    }
 
     /*
      * prepara el boton de buscar por ubicacion
@@ -100,23 +97,23 @@ function playVideo() {
     var headerContent = document.querySelector('.header-content');
 
     if ( pantallaWidth > 960 ) {
-        //cuando no es movil va mute
-        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=1&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
+        //cuando no es movil va mute es el video que dice sin placa
+        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=d48d4229592f5ab26b760df6a699effc&source=embed&photo%5fid=54601734&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=1&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
     } else {
-        //cuando es movil tiene sonido
-        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=fe9f8a853a8418a54fdde950f871b49f&source=embed&photo%5fid=54541222&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=0&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
+        //cuando es movil tiene sonido y es otro video
+        html += '<div style="width:100%; height:0; position: relative; padding-bottom:177.77777777777777%"><iframe src="//neulandtv-argentina.videomarketingplatform.co/v.ihtml/player.html?token=d07e044be7ac6f203219b203697a591d&source=embed&photo%5fid=54601748&autoPlay=1&endOn=thumbnail&hideBigPlay=1&loop=1&ambient=0&showTray=0" style="width:100%; height:100%; position: absolute; top: 0; left: 0;" frameborder="0" border="0" scrolling="no" allowfullscreen="1" mozallowfullscreen="1" webkitallowfullscreen="1" allow="autoplay; fullscreen"></iframe></div>';
     }
     videoWrapper.innerHTML = html;
    
-    if ( pantallaWidth > 960 ) {
+    /*if ( pantallaWidth > 960 ) {
         videoWrapper.querySelector('iframe').onload = function() {
             imagenHeader.style.opacity = 0;   
             //imagenHeader.style.zIndex = 1;  
         }
-    } else {
+    } else {*/
         //subo el z index del fondo
         
-        backgroundHeader.style.zIndex = 1111;
+        backgroundHeader.style.zIndex = 1111111111;
         headerContent.style.opacity = 0;
         imagenHeader.style.opacity = 0;   
         imagenHeader.style.zIndex = 1; 
@@ -134,8 +131,8 @@ function playVideo() {
             btnCerrar.style.zIndex = 1;
             btnCerrar.style.opacity = 0; 
             degradado.style.display = 'block';
-        });
-    }
+        }, true);
+    //}else q quedo borrado arriba
 }
 
 

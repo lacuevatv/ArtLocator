@@ -387,7 +387,7 @@ html, body {
 }
 .main-header .background-header .video-header {
   position: absolute;
-  z-index: 11;
+  z-index: 1;
   width: 100%;
   height: 100%;
   display: flex;
@@ -422,7 +422,8 @@ html, body {
 }
 @media (min-width: 992px) {
   .main-header .background-header .close-video-movil {
-    display: none;
+    width: 50px;
+    height: 50px;
   }
 }
 .main-header .background-header .degradado {
@@ -611,6 +612,11 @@ html, body {
     line-height: 40px;
   }
 }
+@media (min-width: 992px) {
+  .main-header .header-content .btn-play-mob {
+    max-width: 550px;
+  }
+}
 .main-header .header-content .btn-play-mob > span {
   display: inline-block;
   position: relative;
@@ -631,11 +637,6 @@ html, body {
   -moz-transform: translateY(-50%);
   -ms-transform: translateY(-50%);
   transform: translateY(-50%);
-}
-@media (min-width: 992px) {
-  .main-header .header-content .btn-play-mob {
-    display: none;
-  }
 }
 
 .main-wrapper {
