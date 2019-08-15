@@ -38,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         var prov = document.querySelector('#zona-provincia').value;
 
-        if (prov == undefined){
+        if (prov == undefined || prov == 'Todos' ){
             prov = null;
         }
         
@@ -160,7 +160,7 @@ function getSelectUbicaciones() {
         } else {
             var resultado = JSON.parse(objAjax.responseText);
             //console.log(resultado)
-            
+            html = '<option>Todos</option>';
             for (var index = 0; index < resultado.length; index++) {
                 //console.log(resultado[index].nombre)
                 html += '<option value="'+resultado[index].id+'">'+resultado[index].titulo+'</option>';
