@@ -17,15 +17,15 @@ var_dump($locations);
 /*$kiosko = getLocation(4);
 var_dump($kiosko);*/
 
-$imagen= array('gascon-despues.jpg' );
+$imagen= array('suipachacaba-despues.jpg' );
 
 echo serialize($imagen);
 
 echo '<br><br>';
 
 $imagenes= array(
-    'antes' => array( 'beiro-antes.jpg' ),
-    'despues' => array( 'beiro-despues.jpg' ),
+    'antes' => array( 'suipachacaba-antes.jpg' ),
+    'despues' => array( 'suipachacaba-despues.jpg' ),
 );
 
 echo serialize($imagenes);
@@ -39,21 +39,21 @@ echo serialize($video);
 echo '<br><br>';
 
 $kiosko = array(
-    'titulo' => '',
-    'latitud' => '',
-    'longitud' => '',
+    'titulo' => 'El rugido en la mirada',
+    'latitud' => '-34.605715',
+    'longitud' => '-58.3815995',
     'ubicacion_id' => 1,
     'marker' => 'marker-violeta.png',
     'likes' => 0,
-    'data_titulo' => '',
+    'data_titulo' => 'El rugido en la mirada',
     'data_imagen' => serialize($imagen),
-    'data_tag' => '',
-    'data_resumen' => '',
+    'data_tag' => 'Julián Cruz Solano ',
+    'data_resumen' => 'Secretos que debemos aprender de los animales, están guardados en la pupila así como la memoria de la tierra guardada en la retina.',
     'data_video' => '',
-    'data_texto' => '',
-    'data_direccion' => '',
+    'data_texto' => 'Secretos que debemos aprender de los animales, están guardados en la pupila así como la memoria de la tierra guardada en la retina.',
+    'data_direccion' => 'Suipacha 232 - CABA',
     'data_imagenes' => serialize($imagenes),
-    'fecha' => '2019-08-07',
+    'fecha' => '2019-08-15',
 );
 
 $query = "INSERT into kioskos (titulo, latitud, longitud, ubicacion_id, marker, likes, data_titulo, data_imagen, data_tag, data_resumen, data_video, data_texto, data_direccion, data_imagenes, fecha) values(";
