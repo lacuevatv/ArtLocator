@@ -24,8 +24,8 @@ echo serialize($imagen);
 echo '<br><br>';
 
 $imagenes= array(
-    'antes' => array( 'suipachacaba-antes.jpg' ),
-    'despues' => array( 'suipachacaba-despues.jpg' ),
+    'antes' => array( 'sarmiento-antes.jpg' ),
+    'despues' => array( 'sarmiento-despues.jpg' ),
 );
 
 echo serialize($imagenes);

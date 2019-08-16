@@ -43,6 +43,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         
         getLocationsByUbicacion(prov);
+
+        //va a ubicarse en el macpa cuando es movil
+        smoothScroll('.map-wrapper');
     });
 
     /*
