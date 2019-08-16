@@ -614,8 +614,8 @@ html, body {
 }
 @media (min-width: 992px) {
   .main-header .header-content .btn-play-mob {
-    max-width: 166px;
-    font-size: 16px;
+    max-width: 260px;
+    font-size: 20px;
     padding: 5px 0;
   }
 }
