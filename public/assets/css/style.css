@@ -199,6 +199,9 @@ html, body {
   background-color: #fff;
   font-size: 1rem;
   line-height: 1.5rem;
+  height: 100%;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
 }
 @media (min-width: 992px) {
   html, body {

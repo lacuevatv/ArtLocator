@@ -35,6 +35,9 @@ html, body {
     background-color: $color-blanco;
     font-size: 1rem;
     line-height: 1.5rem;
+    height: 100%;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
     @media (min-width: $md) {
         height: 100%;
     }
